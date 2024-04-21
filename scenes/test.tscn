@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Sprite.gd" type="Script" id=1]
+[ext_resource path="res://sound_effects/sprites/water_top.png" type="Texture" id=2]
+
+[sub_resource type="Shader" id=2]
+code = "shader_type canvas_item;
+uniform float offset: hint_range(0, 1) = 0.0;
+
+void fragment(){
+	vec2 uv = UV;
+    uv.x += offset;
+    uv.x = fract(uv.x);
+    COLOR = texture(TEXTURE, uv);
+}"
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = SubResource( 2 )
+shader_param/offset = 0.0
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 483, 377 )
+current = true
+zoom = Vector2( 0.1, 0.1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 1 )
+position = Vector2( 485, 362 )
+texture = ExtResource( 2 )
+script = ExtResource( 1 )

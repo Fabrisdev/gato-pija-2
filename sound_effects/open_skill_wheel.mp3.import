@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/open_skill_wheel.mp3-ac2103a0122ba1750b8bc8b93c19265f.mp3str"
+
+[deps]
+
+source_file="res://sound_effects/open_skill_wheel.mp3"
+dest_files=[ "res://.import/open_skill_wheel.mp3-ac2103a0122ba1750b8bc8b93c19265f.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
