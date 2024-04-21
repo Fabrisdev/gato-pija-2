@@ -1,17 +1,14 @@
 extends KinematicBody2D
 
-const GRAVITY = 10
-const MAXTIREDSPEED = 80
-const MAXSPEED = 100
-const MAXRUNNINGSPEED = 120
-const JUMPFORCE = 150
+export var gravity = 10
+export var speed = 120
+export var jump_force = 150
+export var void_level = 300
 var motion = Vector2()
 var rotatingRight = false
 var rotatingLeft = false
 var firstRotationDone = false
 var time_stopped = false
-
-export var void_level = 300
 
 signal died
 
@@ -39,13 +36,13 @@ func handle_death():
 	modulate = Color.red
 
 func controlMovement(delta: float):
-	motion.y += GRAVITY
+	motion.y += gravity
 	if Input.is_action_pressed("left"):
-		motion.x = clamp(motion.x, -MAXRUNNINGSPEED, MAXRUNNINGSPEED)
-		motion.x -= MAXRUNNINGSPEED * 0.1
+		motion.x = clamp(motion.x, -speed, speed)
+		motion.x -= speed * 0.1
 	elif Input.is_action_pressed("right"):
-		motion.x = clamp(motion.x, -MAXRUNNINGSPEED, MAXRUNNINGSPEED)
-		motion.x += MAXRUNNINGSPEED * 0.1
+		motion.x = clamp(motion.x, -speed, speed)
+		motion.x += speed * 0.1
 	else:
 		motion.x = lerp(motion.x, 0, 0.2)
 	if rotatingRight:
@@ -82,7 +79,7 @@ func controlMovement(delta: float):
 				
 	if is_on_floor():
 		if Input.is_action_just_pressed("jump"):
-			motion.y = -JUMPFORCE
+			motion.y = -jump_force
 			if Input.is_action_pressed("right"):
 				rotatingRight = true
 			elif Input.is_action_pressed("left"):
