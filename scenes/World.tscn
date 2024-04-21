@@ -403,8 +403,10 @@ script = ExtResource( 24 )
 
 [connection signal="timeout" from="CanvasLayer/Timer" to="CanvasLayer/CounterRichlabel" method="_on_Timer_timeout"]
 [connection signal="skill_menu_closed" from="CanvasLayer/SkillWheel" to="." method="_on_SkillWheel_skill_menu_closed"]
+[connection signal="skill_menu_closed" from="CanvasLayer/SkillWheel" to="Player" method="_on_SkillWheel_skill_menu_closed"]
 [connection signal="skill_menu_closed" from="CanvasLayer/SkillWheel" to="WorldEnvironment" method="_on_SkillWheel_skill_menu_closed"]
 [connection signal="skill_menu_opened" from="CanvasLayer/SkillWheel" to="." method="_on_SkillWheel_skill_menu_opened"]
+[connection signal="skill_menu_opened" from="CanvasLayer/SkillWheel" to="Player" method="_on_SkillWheel_skill_menu_opened"]
 [connection signal="skill_menu_opened" from="CanvasLayer/SkillWheel" to="WorldEnvironment" method="_on_SkillWheel_skill_menu_opened"]
 [connection signal="died" from="Player" to="." method="_on_Player_died"]
 [connection signal="died" from="Player" to="CanvasLayer/CenterContainer/DeathLabel" method="_on_Player_died"]
