@@ -382,17 +382,8 @@ text = "HAS MUERTO.
 align = 1
 valign = 1
 
-[node name="WheelContainer" type="CenterContainer" parent="CanvasLayer"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -20.0
-margin_top = -20.0
-margin_right = 20.0
-margin_bottom = 20.0
-
-[node name="SkillWheel" parent="CanvasLayer/WheelContainer" instance=ExtResource( 23 )]
+[node name="SkillWheel" parent="CanvasLayer" instance=ExtResource( 23 )]
+position = Vector2( 620, 340 )
 
 [node name="Clouds" type="Sprite" parent="."]
 visible = false
@@ -447,9 +438,9 @@ environment = SubResource( 18 )
 script = ExtResource( 24 )
 
 [connection signal="timeout" from="CanvasLayer/Timer" to="CanvasLayer/CounterRichlabel" method="_on_Timer_timeout"]
-[connection signal="skill_menu_closed" from="CanvasLayer/WheelContainer/SkillWheel" to="." method="_on_SkillWheel_skill_menu_closed"]
-[connection signal="skill_menu_closed" from="CanvasLayer/WheelContainer/SkillWheel" to="Player" method="_on_SkillWheel_skill_menu_closed"]
-[connection signal="skill_menu_closed" from="CanvasLayer/WheelContainer/SkillWheel" to="WorldEnvironment" method="_on_SkillWheel_skill_menu_closed"]
-[connection signal="skill_menu_opened" from="CanvasLayer/WheelContainer/SkillWheel" to="." method="_on_SkillWheel_skill_menu_opened"]
-[connection signal="skill_menu_opened" from="CanvasLayer/WheelContainer/SkillWheel" to="Player" method="_on_SkillWheel_skill_menu_opened"]
-[connection signal="skill_menu_opened" from="CanvasLayer/WheelContainer/SkillWheel" to="WorldEnvironment" method="_on_SkillWheel_skill_menu_opened"]
+[connection signal="skill_menu_closed" from="CanvasLayer/SkillWheel" to="." method="_on_SkillWheel_skill_menu_closed"]
+[connection signal="skill_menu_closed" from="CanvasLayer/SkillWheel" to="Player" method="_on_SkillWheel_skill_menu_closed"]
+[connection signal="skill_menu_closed" from="CanvasLayer/SkillWheel" to="WorldEnvironment" method="_on_SkillWheel_skill_menu_closed"]
+[connection signal="skill_menu_opened" from="CanvasLayer/SkillWheel" to="." method="_on_SkillWheel_skill_menu_opened"]
+[connection signal="skill_menu_opened" from="CanvasLayer/SkillWheel" to="Player" method="_on_SkillWheel_skill_menu_opened"]
+[connection signal="skill_menu_opened" from="CanvasLayer/SkillWheel" to="WorldEnvironment" method="_on_SkillWheel_skill_menu_opened"]
