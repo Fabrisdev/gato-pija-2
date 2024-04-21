@@ -11,6 +11,8 @@ var rotatingLeft = false
 var firstRotationDone = false
 var time_stopped = false
 
+export var void_level = 300
+
 signal died
 
 func _physics_process(delta):
@@ -20,13 +22,19 @@ func _physics_process(delta):
 		return
 	if time_stopped:
 		return
+	if has_fell():
+		emit_signal("died")
+		handle_death()
 	controlMovement(delta)
 
 func has_died():
 	for i in get_slide_count():
 		var collision = get_slide_collision(i)
 		return collision.collider.is_in_group("danger")
-
+		
+func has_fell():
+	return position.y > void_level
+	
 func handle_death():
 	modulate = Color.red
 

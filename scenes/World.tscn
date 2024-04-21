@@ -295,6 +295,7 @@ position = Vector2( 620, 340 )
 [node name="Timer" parent="UI" instance=ExtResource( 6 )]
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
+void_level = 100
 
 [node name="OptionsController" type="Node" parent="."]
 script = ExtResource( 7 )
