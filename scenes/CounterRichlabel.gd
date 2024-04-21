@@ -24,4 +24,3 @@ func _on_Timer_timeout():
 		seconds = 0
 		minutes += 1
 	update_text()
-	

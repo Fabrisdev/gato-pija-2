@@ -9,7 +9,7 @@ font_data = ExtResource( 1 )
 
 [node name="Timer" type="CanvasLayer"]
 
-[node name="CounterLabel" type="RichTextLabel" parent="."]
+[node name="Text" type="RichTextLabel" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -159.5
@@ -27,4 +27,4 @@ script = ExtResource( 2 )
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 
-[connection signal="timeout" from="Timer" to="CounterLabel" method="_on_Timer_timeout"]
+[connection signal="timeout" from="Timer" to="Text" method="_on_Timer_timeout"]
