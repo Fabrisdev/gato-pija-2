@@ -11,12 +11,13 @@ var rotatingLeft = false
 var firstRotationDone = false
 var time_stopped = false
 
+signal died
+
 func _physics_process(delta):
 	if has_died():
+		emit_signal("died")
 		handle_death()
 		return
-	if has_fell():
-		handle_death()
 	if time_stopped:
 		return
 	controlMovement(delta)
@@ -26,65 +27,19 @@ func has_died():
 		var collision = get_slide_collision(i)
 		return collision.collider.is_in_group("danger")
 
-func has_fell():
-	var tilemap_coords = $"%AnimatedFluidTileMap".world_to_map(position)
-	return tilemap_coords.y > 0
-
 func handle_death():
 	modulate = Color.red
-	$"%DeathLabel".visible = true
-	if Input.is_action_just_pressed("retry"):
-		var current_scene = get_tree().current_scene.filename
-		SceneTransition.change_scene(current_scene)
 
 func controlMovement(delta: float):
-	if Input.is_action_just_pressed("magic test"):
-		motion.x += MAXRUNNINGSPEED * 10
-		motion.y -= MAXRUNNINGSPEED
 	motion.y += GRAVITY
-	var consumedHealthRect = get_node("../CanvasLayer/ConsumedHealthColor")
-	var fullHealthRect = get_node("../CanvasLayer/FullHealthColor")
-	var remainingHealth = (fullHealthRect.rect_size.x - consumedHealthRect.rect_size.x) - 1
-	if remainingHealth > 1:
-		if Input.is_action_pressed("run") && Input.is_action_pressed("left"):
-			motion.x = clamp(motion.x, -MAXRUNNINGSPEED, MAXRUNNINGSPEED)
-			motion.x -= MAXRUNNINGSPEED * 0.1
-			reduceHealth()
-		elif Input.is_action_pressed("run") && Input.is_action_pressed("right"):
-			motion.x = clamp(motion.x, -MAXRUNNINGSPEED, MAXRUNNINGSPEED)
-			motion.x += MAXRUNNINGSPEED * 0.1
-			reduceHealth()
-		elif Input.is_action_pressed("left"):
-			motion.x = clamp(motion.x, -MAXSPEED, MAXSPEED)
-			motion.x -= MAXSPEED * 0.1
-			incrementHealth()
-		elif Input.is_action_pressed("right"):
-			motion.x = clamp(motion.x, -MAXSPEED, MAXSPEED)
-			motion.x += MAXSPEED * 0.1
-			incrementHealth()
-		else:
-			motion.x = lerp(motion.x, 0, 0.2)
-			incrementHealth()
-	elif not Input.is_action_pressed("run"):
-		if Input.is_action_pressed("left"):
-			motion.x = clamp(motion.x, -MAXSPEED, MAXSPEED)
-			motion.x -= MAXSPEED * 0.1
-		elif Input.is_action_pressed("right"):
-			motion.x = clamp(motion.x, -MAXSPEED, MAXSPEED)
-			motion.x += MAXSPEED * 0.1
-		else:
-			motion.x = lerp(motion.x, 0, 0.2)
-		incrementHealth()
+	if Input.is_action_pressed("left"):
+		motion.x = clamp(motion.x, -MAXRUNNINGSPEED, MAXRUNNINGSPEED)
+		motion.x -= MAXRUNNINGSPEED * 0.1
+	elif Input.is_action_pressed("right"):
+		motion.x = clamp(motion.x, -MAXRUNNINGSPEED, MAXRUNNINGSPEED)
+		motion.x += MAXRUNNINGSPEED * 0.1
 	else:
-		if Input.is_action_pressed("left"):
-			motion.x = clamp(motion.x, -MAXTIREDSPEED, MAXTIREDSPEED)
-			motion.x -= MAXTIREDSPEED * 0.1
-		elif Input.is_action_pressed("right"):
-			motion.x = clamp(motion.x, -MAXTIREDSPEED, MAXTIREDSPEED)
-			motion.x += MAXTIREDSPEED * 0.1
-		else:
-			motion.x = lerp(motion.x, 0, 0.2)
-			
+		motion.x = lerp(motion.x, 0, 0.2)
 	if rotatingRight:
 		if not firstRotationDone:
 			if floor(abs(rotation_degrees)) in range(170, 179):

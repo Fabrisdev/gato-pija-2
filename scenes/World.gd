@@ -11,3 +11,9 @@ func _on_SkillWheel_skill_menu_opened():
 
 func _on_SkillWheel_skill_menu_closed():
 	set_modulate(Color(1, 1, 1))
+
+
+func _on_Player_died():
+	if Input.is_action_just_pressed("retry"):
+		var current_scene = get_tree().current_scene.filename
+		SceneTransition.change_scene(current_scene)
