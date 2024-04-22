@@ -2,6 +2,7 @@ extends Node2D
 var menu_opened = false
 signal skill_menu_opened
 signal skill_menu_closed
+signal dash_skill_equipped
 
 func _process(delta):
 	if not Input.is_action_just_pressed("open skill wheel"):
@@ -31,3 +32,4 @@ func close_menu():
 
 func _on_DashSkill_skill_equipped():
 	close_menu()
+	emit_signal("dash_skill_equipped")

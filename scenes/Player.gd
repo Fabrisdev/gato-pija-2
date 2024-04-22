@@ -9,6 +9,7 @@ var rotatingRight = false
 var rotatingLeft = false
 var firstRotationDone = false
 var time_stopped = false
+var skill_equipped = "NONE"
 
 signal died
 
@@ -37,14 +38,20 @@ func handle_death():
 
 func controlMovement(delta: float):
 	motion.y += gravity
-	if Input.is_action_pressed("left"):
-		motion.x = clamp(motion.x, -speed, speed)
-		motion.x -= speed * 0.1
-	elif Input.is_action_pressed("right"):
-		motion.x = clamp(motion.x, -speed, speed)
-		motion.x += speed * 0.1
-	else:
-		motion.x = lerp(motion.x, 0, 0.2)
+	print($DashActiveTimer.time_left)
+	if $DashActiveTimer.time_left == 0:
+		if Input.is_action_pressed("left"):
+			motion.x = clamp(motion.x, -speed, speed)
+			motion.x -= speed * 0.1
+		elif Input.is_action_pressed("right"):
+			motion.x = clamp(motion.x, -speed, speed)
+			motion.x += speed * 0.1
+		else:
+			motion.x = lerp(motion.x, 0, 0.2)
+		
+	if skill_equipped != "NONE" and Input.is_action_just_pressed("use skill"):
+		handle_skill(skill_equipped, delta)	
+	
 	if rotatingRight:
 		if not firstRotationDone:
 			if floor(abs(rotation_degrees)) in range(170, 179):
@@ -115,3 +122,21 @@ func _on_SkillWheel_skill_menu_opened():
 
 func _on_SkillWheel_skill_menu_closed():
 	time_stopped = false
+
+func handle_skill(skill_equipped, delta):
+	print("intento")
+	if skill_equipped == "DASH":
+		$DashActiveTimer.start()
+		if Input.is_action_pressed("right"):
+			print('right')
+			motion.x = 350
+		if Input.is_action_pressed("jump"):
+			print('jump')
+			motion.y = -350
+		if Input.is_action_pressed("left"):
+			print('left')
+			motion.x = -350
+
+func _on_SkillWheel_dash_skill_equipped():
+	skill_equipped = "DASH"
+	print("Skill equipped: " + skill_equipped)

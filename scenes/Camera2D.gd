@@ -1,7 +1,7 @@
 extends Camera2D
 
 const ZOOM_AMOUNT = 0.3
-const DEFAULT_ZOOM = 0.2
+const DEFAULT_ZOOM = 0.3
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
