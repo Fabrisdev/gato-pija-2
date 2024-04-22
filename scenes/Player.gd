@@ -38,7 +38,6 @@ func handle_death():
 
 func controlMovement(delta: float):
 	motion.y += gravity
-	print($DashActiveTimer.time_left)
 	if $DashActiveTimer.time_left == 0:
 		if Input.is_action_pressed("left"):
 			motion.x = clamp(motion.x, -speed, speed)
@@ -124,17 +123,13 @@ func _on_SkillWheel_skill_menu_closed():
 	time_stopped = false
 
 func handle_skill(skill_equipped, delta):
-	print("intento")
 	if skill_equipped == "DASH":
 		$DashActiveTimer.start()
 		if Input.is_action_pressed("right"):
-			print('right')
 			motion.x = 350
 		if Input.is_action_pressed("jump"):
-			print('jump')
 			motion.y = -350
 		if Input.is_action_pressed("left"):
-			print('left')
 			motion.x = -350
 
 func _on_SkillWheel_dash_skill_equipped():
