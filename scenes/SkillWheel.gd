@@ -16,7 +16,13 @@ func _process(delta):
 		emit_signal("skill_menu_opened")
 		return
 	$CloseWheelAudioPlayer.play()
+	close_menu()
+	
+func close_menu():
 	$Animator.play_backwards("wheel")
 	$"%WheelEffect".visible = false
 	menu_opened = false
 	emit_signal("skill_menu_closed")
+
+func _on_DashSkill_skill_equipped():
+	close_menu()

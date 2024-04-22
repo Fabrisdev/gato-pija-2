@@ -16,6 +16,7 @@ margin_left = -159.5
 margin_top = 60.0
 margin_right = 159.5
 margin_bottom = 117.0
+mouse_filter = 2
 custom_fonts/normal_font = SubResource( 1 )
 bbcode_enabled = true
 bbcode_text = "[center]00:00"
