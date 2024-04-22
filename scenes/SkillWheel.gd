@@ -14,6 +14,9 @@ func _process(delta):
 		$"%WheelEffect".visible = true
 		menu_opened = true
 		emit_signal("skill_menu_opened")
+		$"%WheelP2".visible = true
+		$"%WheelP1".visible = true
+		$PartsAnimator.play("rotate")
 		return
 	$CloseWheelAudioPlayer.play()
 	close_menu()
@@ -23,6 +26,8 @@ func close_menu():
 	$"%WheelEffect".visible = false
 	menu_opened = false
 	emit_signal("skill_menu_closed")
+	$"%WheelP2".visible = false
+	$"%WheelP1".visible = false
 
 func _on_DashSkill_skill_equipped():
 	close_menu()
