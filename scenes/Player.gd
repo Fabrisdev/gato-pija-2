@@ -96,9 +96,11 @@ func controlMovement(delta: float):
 
 func _on_SkillWheel_skill_menu_opened():
 	time_stopped = true
+	$Manabar.visible = false
 
 func _on_SkillWheel_skill_menu_closed():
 	time_stopped = false
+	$Manabar.visible = true
 
 func handle_skill(skill_equipped, delta):
 	if skill_on_cooldown: return
