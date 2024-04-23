@@ -111,7 +111,7 @@ func handle_skill(skill_equipped, delta):
 		$Manabar.reduce_mana(50)
 		if Input.is_action_pressed("right"):
 			motion.x = dash_speed
-		if Input.is_action_pressed("jump"):
+		if Input.is_action_pressed("jump") or Input.is_action_pressed("look up joystick"):
 			motion.y = -dash_speed
 		if Input.is_action_pressed("left"):
 			motion.x = -dash_speed
