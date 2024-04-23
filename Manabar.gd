@@ -1,8 +1,8 @@
 extends CanvasLayer
-const max_mana = 352
+var remaining_mana = 352
 
 func reduce_mana(amount):
-	var consumed_mana = $ConsumedMana.rect_size.x
-	if consumed_mana >= 352 or amount > max_mana - consumed_mana: return
+	if remaining_mana <= 0 or amount > remaining_mana: return
 	$ConsumedMana.rect_position.x -= amount
 	$ConsumedMana.rect_size.x += amount
+	remaining_mana -= amount
