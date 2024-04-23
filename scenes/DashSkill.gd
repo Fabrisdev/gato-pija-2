@@ -1,6 +1,6 @@
 extends Node2D
 signal skill_equipped
-var is_joystick_input_allowed = true
+var is_joystick_input_allowed = false
 
 func _on_SkillWheel_skill_menu_opened():
 	$Animator.play("appear")
@@ -17,6 +17,7 @@ func _process(delta):
 	if not is_joystick_input_allowed: return
 	if Input.is_action_just_pressed("select up joystick"):
 		$Animator.play("hover")
+		$HoverSkillAudioPlayer.play()
 	if Input.is_action_just_released("select up joystick"):
 		if $Animator.current_animation != "appear":
 			$Animator.play_backwards("hover")
