@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/Player.gd" type="Script" id=1]
 [ext_resource path="res://sprites/spr_player.png" type="Texture" id=2]
 [ext_resource path="res://scenes/Camera2D.gd" type="Script" id=3]
+[ext_resource path="res://Manabar.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 8 )
@@ -28,3 +29,10 @@ shape = SubResource( 1 )
 [node name="DashActiveTimer" type="Timer" parent="."]
 wait_time = 0.6
 one_shot = true
+
+[node name="Manabar" parent="." instance=ExtResource( 4 )]
+
+[node name="CooldownTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]

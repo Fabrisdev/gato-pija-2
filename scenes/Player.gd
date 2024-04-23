@@ -4,12 +4,14 @@ export var gravity = 10
 export var speed = 120
 export var jump_force = 150
 export var void_level = 300
+export var dash_speed = 350
 var motion = Vector2()
 var rotatingRight = false
 var rotatingLeft = false
 var firstRotationDone = false
 var time_stopped = false
 var skill_equipped = "NONE"
+var skill_on_cooldown = false
 
 signal died
 
@@ -92,46 +94,30 @@ func controlMovement(delta: float):
 				rotatingLeft = true
 	motion = move_and_slide(motion, Vector2.UP)
 
-func reduceHealth():
-	var FullHealthRect = get_node("../CanvasLayer/FullHealthColor")
-	var MAX_HEALTH = FullHealthRect.rect_size.x
-	var MIN_POSITION = FullHealthRect.rect_position.x
-	var MAX_POSITION = FullHealthRect.rect_position.x + MAX_HEALTH
-	var consumedHealthRect = get_node("../CanvasLayer/ConsumedHealthColor")
-	
-	consumedHealthRect.set_position(Vector2(consumedHealthRect.rect_position.x - 1, consumedHealthRect.rect_position.y))
-	consumedHealthRect.set_size(Vector2(consumedHealthRect.rect_size.x + 1, consumedHealthRect.rect_size.y))
-	consumedHealthRect.rect_size.x = clamp(consumedHealthRect.rect_size.x, 0, MAX_HEALTH)
-	consumedHealthRect.rect_position.x = clamp(consumedHealthRect.rect_position.x, MIN_POSITION, MAX_POSITION)
-
-func incrementHealth():
-	var FullHealthRect = get_node("../CanvasLayer/FullHealthColor")
-	var MAX_HEALTH = FullHealthRect.rect_size.x
-	var MIN_POSITION = FullHealthRect.rect_position.x
-	var MAX_POSITION = FullHealthRect.rect_position.x + MAX_HEALTH
-	var consumedHealthRect = get_node("../CanvasLayer/ConsumedHealthColor")
-	
-	consumedHealthRect.set_position(Vector2(consumedHealthRect.rect_position.x + 1, consumedHealthRect.rect_position.y))
-	consumedHealthRect.set_size(Vector2(consumedHealthRect.rect_size.x - 1, consumedHealthRect.rect_size.y))
-
-
 func _on_SkillWheel_skill_menu_opened():
 	time_stopped = true
-
 
 func _on_SkillWheel_skill_menu_closed():
 	time_stopped = false
 
 func handle_skill(skill_equipped, delta):
+	if skill_on_cooldown: return
 	if skill_equipped == "DASH":
 		$DashActiveTimer.start()
+		$CooldownTimer.start(1.5)
+		$Manabar.reduce_mana(50)
 		if Input.is_action_pressed("right"):
-			motion.x = 350
+			motion.x = dash_speed
 		if Input.is_action_pressed("jump"):
-			motion.y = -350
+			motion.y = -dash_speed
 		if Input.is_action_pressed("left"):
-			motion.x = -350
+			motion.x = -dash_speed
+	skill_on_cooldown = true
 
 func _on_SkillWheel_dash_skill_equipped():
 	skill_equipped = "DASH"
 	print("Skill equipped: " + skill_equipped)
+
+
+func _on_CooldownTimer_timeout():
+	skill_on_cooldown = false
