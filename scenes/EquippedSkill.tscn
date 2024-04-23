@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://sprites/skills/dash.png" type="Texture" id=1]
+[ext_resource path="res://scenes/EquippedSkill.gd" type="Script" id=2]
+
+[node name="EquippedSkill" type="Control"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -108.0
+margin_top = 95.0
+margin_right = -68.0
+margin_bottom = 135.0
+script = ExtResource( 2 )
+
+[node name="DashSprite" type="Sprite" parent="."]
+visible = false
+scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 1 )
