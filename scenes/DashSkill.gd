@@ -4,6 +4,7 @@ var is_joystick_input_allowed = false
 
 func _on_SkillWheel_skill_menu_opened():
 	$Animator.play("appear")
+	yield($Animator, "animation_finished")
 	is_joystick_input_allowed = true
 
 func _on_SkillWheel_skill_menu_closed():
