@@ -282,6 +282,7 @@ script = ExtResource( 8 )
 [node name="EquippedSkill" parent="UI" instance=ExtResource( 9 )]
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
+position = Vector2( -255, -135 )
 void_level = 100
 
 [node name="OptionsController" type="Node" parent="."]
