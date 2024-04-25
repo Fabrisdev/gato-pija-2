@@ -4,20 +4,18 @@
 [ext_resource path="res://scenes/SkillWheel.gd" type="Script" id=2]
 [ext_resource path="res://sound_effects/close_skill_wheel.mp3" type="AudioStream" id=3]
 [ext_resource path="res://sound_effects/open_skill_wheel.mp3" type="AudioStream" id=4]
-[ext_resource path="res://shaders/screen/TV.shader" type="Shader" id=5]
+[ext_resource path="res://shaders/screen/SimpleGlitch.shader" type="Shader" id=5]
 [ext_resource path="res://scenes/DashSkill.tscn" type="PackedScene" id=6]
 [ext_resource path="res://sprites/wheel-part-1.png" type="Texture" id=7]
 [ext_resource path="res://sprites/wheel-part-2.png" type="Texture" id=8]
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 5 )
-shader_param/vertJerkOpt = 0.2
-shader_param/vertMovementOpt = 0.0
-shader_param/bottomStaticOpt = 0.0
-shader_param/bottomStaticStrenth = 0.7
-shader_param/scalinesOpt = 0.8
-shader_param/rgbOffsetOpt = 0.2
-shader_param/horzFuzzOpt = 0.15
+shader_param/range = 0.03
+shader_param/noiseQuality = 250.0
+shader_param/noiseIntensity = 0.01
+shader_param/offsetIntensity = 0.01
+shader_param/colorOffsetIntensity = 0.5
 
 [sub_resource type="Animation" id=1]
 resource_name = "wheel"
