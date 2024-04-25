@@ -23,6 +23,7 @@ func _process(delta):
 		if $Animator.current_animation != "appear":
 			$Animator.play_backwards("hover")
 	if Input.is_action_just_pressed("jump") and Input.is_action_pressed("select up joystick"):
+		is_joystick_input_allowed = false
 		$EquipSkillAudioPlayer.play()
 		$Animator.play("equip")
 		yield($Animator, "animation_finished")
