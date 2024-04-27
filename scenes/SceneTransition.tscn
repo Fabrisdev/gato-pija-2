@@ -37,6 +37,12 @@ tracks/0/keys = {
 layer = 50
 script = ExtResource( 2 )
 
+[node name="Animator" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+root_node = NodePath("../CenterContainer/CircleTexture")
+anims/CoverScreen = SubResource( 1 )
+anims/RESET = SubResource( 2 )
+
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -55,8 +61,3 @@ rect_scale = Vector2( 1e-05, 1e-05 )
 rect_pivot_offset = Vector2( 256, 256 )
 texture = ExtResource( 1 )
 stretch_mode = 6
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CenterContainer/CircleTexture"]
-unique_name_in_owner = true
-anims/CoverScreen = SubResource( 1 )
-anims/RESET = SubResource( 2 )
