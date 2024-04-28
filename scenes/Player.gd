@@ -115,6 +115,7 @@ func handle_skill(skill_equipped, delta):
 			motion.y = -dash_speed
 		if Input.is_action_pressed("left"):
 			motion.x = -dash_speed
+		
 	skill_on_cooldown = true
 
 func _on_SkillWheel_dash_skill_equipped():
