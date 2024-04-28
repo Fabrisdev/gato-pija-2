@@ -109,6 +109,7 @@ func handle_skill(skill_equipped, delta):
 		$DashActiveTimer.start()
 		$CooldownTimer.start(1.5)
 		$Manabar.reduce_mana(50)
+		$DashSkillActivatedPlayer.play()
 		if Input.is_action_pressed("right"):
 			motion.x = dash_speed
 		if Input.is_action_pressed("jump") or Input.is_action_pressed("look up joystick"):
