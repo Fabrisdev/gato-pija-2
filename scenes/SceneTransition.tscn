@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://sprites/circle-512.png" type="Texture" id=1]
 [ext_resource path="res://scenes/SceneTransition.gd" type="Script" id=2]
+[ext_resource path="res://scenes/SceneTransitionAnimator.gd" type="Script" id=3]
 
 [sub_resource type="Animation" id=1]
 resource_name = "CoverScreen"
@@ -43,6 +44,7 @@ unique_name_in_owner = true
 root_node = NodePath("../CenterContainer/CircleTexture")
 anims/CoverScreen = SubResource( 1 )
 anims/RESET = SubResource( 2 )
+script = ExtResource( 3 )
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchor_left = 0.5
