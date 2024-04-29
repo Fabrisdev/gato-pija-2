@@ -3,7 +3,7 @@
 [ext_resource path="res://scenes/Player.gd" type="Script" id=1]
 [ext_resource path="res://sprites/spr_player.png" type="Texture" id=2]
 [ext_resource path="res://scenes/Camera2D.gd" type="Script" id=3]
-[ext_resource path="res://Manabar.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/Manabar.tscn" type="PackedScene" id=4]
 [ext_resource path="res://sound_effects/dash_activated.wav" type="AudioStream" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -26,8 +26,6 @@ script = ExtResource( 3 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
-[node name="Manabar" parent="." instance=ExtResource( 4 )]
-
 [node name="DashActiveTimer" type="Timer" parent="."]
 wait_time = 0.6
 one_shot = true
@@ -37,5 +35,7 @@ one_shot = true
 
 [node name="DashSkillActivatedPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
+
+[node name="Manabar" parent="." instance=ExtResource( 4 )]
 
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]
