@@ -17,6 +17,7 @@ config/icon="res://sprites/spr_player.png"
 [autoload]
 
 SceneTransition="*res://scenes/SceneTransition.tscn"
+GlobalOptions="*res://scenes/GlobalOptions.gd"
 
 [display]
 
