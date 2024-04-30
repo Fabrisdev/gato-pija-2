@@ -105,7 +105,9 @@ func _on_SkillWheel_skill_menu_closed():
 func handle_skill(skill_equipped, delta):
 	if skill_on_cooldown: return
 	if skill_equipped == "DASH":
-		if $Manabar.remaining_mana < 50: return
+		if $Manabar.remaining_mana < 50: 
+			$NotEnoughManaPlayer.play()
+			return
 		$DashActiveTimer.start()
 		$CooldownTimer.start(1.5)
 		$Manabar.reduce_mana(50)
