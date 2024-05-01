@@ -1,12 +1,11 @@
 extends CanvasLayer
 
 func change_scene(target: String) -> void:
-	visible = true
-	$Animator.play("CoverScreen")
-	yield($Animator, "animation_finished")
+	$CircleGrowing.play()
+	yield($"CircleGrowing/Animator", "animation_finished")
 	get_tree().change_scene(target)
-	$Animator.play_backwards("CoverScreen")
+	$CircleGrowing.play_backwards()
 	
 func play_backwards() -> void:
-	visible = true
-	$Animator.play_backwards("CoverScreen")
+	$CircleGrowing.play_backwards()
+
