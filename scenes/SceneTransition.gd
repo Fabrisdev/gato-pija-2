@@ -2,10 +2,11 @@ extends CanvasLayer
 var played_animation_backwards_at_start = false
 var rng = RandomNumberGenerator.new()
 
+func _ready():
+	rng.randomize()
+
 func change_scene(target: String) -> void:
-	rng.randomize()
 	var transition_chosen = rng.randi_range(1, 2)
-	rng.randomize()
 	print(transition_chosen)
 	if transition_chosen == 1: # Circle growing
 		$CircleGrowing.play()
