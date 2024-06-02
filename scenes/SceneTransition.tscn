@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/transitions/CircleGrowing.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/SceneTransition.gd" type="Script" id=2]
 [ext_resource path="res://scenes/transitions/RadialWipe.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/RectGrowing.tscn" type="PackedScene" id=4]
 
 [node name="SceneTransition" type="CanvasLayer"]
 layer = 50
@@ -12,4 +13,7 @@ script = ExtResource( 2 )
 visible = false
 
 [node name="CircleGrowing" parent="." instance=ExtResource( 1 )]
+visible = false
+
+[node name="RectGrowing" parent="." instance=ExtResource( 4 )]
 visible = false
