@@ -3,8 +3,10 @@ var menu_opened = false
 signal skill_menu_opened
 signal skill_menu_closed
 signal dash_skill_equipped
+var can_open_menu = true
 
 func _process(delta):
+	if not can_open_menu: return
 	if not Input.is_action_just_pressed("open skill wheel"):
 		return
 	if $Animator.is_playing():
@@ -33,3 +35,7 @@ func close_menu():
 func _on_DashSkill_skill_equipped():
 	close_menu()
 	emit_signal("dash_skill_equipped")
+
+
+func _on_Player_died():
+	can_open_menu = false
