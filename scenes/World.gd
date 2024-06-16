@@ -16,3 +16,7 @@ func _on_Player_died():
 	if Input.is_action_just_pressed("retry"):
 		var current_scene = get_tree().current_scene.filename
 		SceneTransition.change_scene(current_scene)
+
+
+func _on_BabyBottle_level_completed():
+	pass # Replace with function body.
