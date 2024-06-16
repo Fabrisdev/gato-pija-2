@@ -10,10 +10,13 @@ layer = 50
 script = ExtResource( 2 )
 
 [node name="RadialWipe" parent="." instance=ExtResource( 3 )]
+layer = 49
 visible = false
 
 [node name="CircleGrowing" parent="." instance=ExtResource( 1 )]
+layer = 49
 visible = false
 
 [node name="RectGrowing" parent="." instance=ExtResource( 4 )]
+layer = 49
 visible = false
