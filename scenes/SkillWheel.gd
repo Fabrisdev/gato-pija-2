@@ -6,6 +6,7 @@ signal dash_skill_equipped
 var can_open_menu = true
 
 func _process(delta):
+	if $"../../Player".skill_on_cooldown: return
 	if not can_open_menu: return
 	if not Input.is_action_just_pressed("open skill wheel"):
 		return
