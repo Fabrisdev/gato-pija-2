@@ -30,7 +30,9 @@ func _physics_process(delta):
 func has_died():
 	for i in get_slide_count():
 		var collision = get_slide_collision(i)
-		return collision.collider.is_in_group("danger")
+		if collision.collider.is_in_group("danger"):
+			return true
+	return false
 		
 func has_fell():
 	return position.y > void_level
