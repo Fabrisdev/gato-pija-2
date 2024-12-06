@@ -1,0 +1,161 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://fonts/Roboto-Black.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://scenes/LevelButton.gd" type="Script" id=2]
+[ext_resource path="res://sprites/coin.png" type="Texture" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 90
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.764706, 0.203922, 0.984314, 1 )
+border_color = Color( 1, 1, 1, 1 )
+shadow_size = 2
+shadow_offset = Vector2( 5, 5 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.564706, 0.129412, 0.764706, 1 )
+shadow_size = 2
+shadow_offset = Vector2( 5, 5 )
+
+[sub_resource type="Animation" id=4]
+resource_name = "Fade"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("FirstCoin:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 0.529412, 0.529412, 0.529412, 1 ), Color( 0, 0, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("FirstCoin:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "Fade"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 0.529412, 0.529412, 0.529412, 1 ), Color( 0, 0, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "Fade"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 0.529412, 0.529412, 0.529412, 1 ), Color( 0, 0, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ) ]
+}
+
+[node name="LevelButton" type="Button"]
+rect_min_size = Vector2( 120, 120 )
+mouse_default_cursor_shape = 2
+custom_fonts/font = SubResource( 1 )
+custom_styles/hover = SubResource( 3 )
+custom_styles/normal = SubResource( 2 )
+text = "5"
+script = ExtResource( 2 )
+
+[node name="FirstCoin" type="Sprite" parent="."]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 6.89549, 112.975 )
+rotation = 0.19325
+scale = Vector2( 2.2, 2.2 )
+texture = ExtResource( 3 )
+
+[node name="FadeAnimation" type="AnimationPlayer" parent="FirstCoin"]
+root_node = NodePath("../..")
+anims/Fade = SubResource( 4 )
+anims/RESET = SubResource( 8 )
+
+[node name="SecondCoin" type="Sprite" parent="."]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 60.8955, 116.975 )
+scale = Vector2( 2.2, 2.2 )
+texture = ExtResource( 3 )
+
+[node name="FadeAnimation" type="AnimationPlayer" parent="SecondCoin"]
+anims/Fade = SubResource( 5 )
+anims/RESET = SubResource( 9 )
+
+[node name="ThirdCoin" type="Sprite" parent="."]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 114.895, 112.975 )
+rotation = -0.174533
+scale = Vector2( 2.2, 2.2 )
+texture = ExtResource( 3 )
+
+[node name="FadeAnimation" type="AnimationPlayer" parent="ThirdCoin"]
+anims/Fade = SubResource( 6 )
+anims/RESET = SubResource( 7 )
+
+[connection signal="mouse_entered" from="." to="." method="_on_LevelButton_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_LevelButton_mouse_exited"]
