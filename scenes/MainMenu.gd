@@ -8,3 +8,7 @@ func _ready():
 func _process(delta):
 	if Input.is_action_just_pressed("jump"):
 		SceneTransition.change_scene("res://scenes/World.tscn")
+
+
+func _on_LevelSelector_go_back():
+	$Camera/AnimationPlayer.play_backwards("MoveDownToPlay")

@@ -1,10 +1,11 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://fonts/Roboto-Black.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scenes/PlayButton.gd" type="Script" id=2]
 [ext_resource path="res://songs/1. Palm Tree Shade.wav" type="AudioStream" id=3]
 [ext_resource path="res://scenes/MainMenu.gd" type="Script" id=4]
 [ext_resource path="res://fonts/GravityBig.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://scenes/LevelSelector.tscn" type="PackedScene" id=6]
 
 [sub_resource type="Animation" id=6]
 length = 0.001
@@ -160,6 +161,13 @@ corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id=5]
 bg_color = Color( 0.341176, 0.211765, 0.505882, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id=16]
+bg_color = Color( 0.25098, 0.25098, 0.25098, 1 )
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
@@ -336,6 +344,136 @@ tracks/1/keys = {
 "values": [ Color( 1, 0.917647, 0.368627, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0.960991, 0.700929, 1 ), Color( 1, 0.917647, 0.368627, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0.917647, 0.368627, 1 ) ]
 }
 
+[sub_resource type="Animation" id=15]
+resource_name = "MoveDownToPlay"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 3.86375, 1 ),
+"update": 0,
+"values": [ Vector2( 640, 360 ), Vector2( 640, 1080 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../ColorRect/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer7/PlayButton:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 2.37841, 0.999999 ),
+"update": 0,
+"values": [ Vector2( 250, 0 ), Vector2( 250, 2000 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../ColorRect/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer7/PlayButton:rect_rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2, 1.7 ),
+"transitions": PoolRealArray( 1, 2.07053, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 360.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../ColorRect/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer7/PlayButton:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../ColorRect/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer7/PlayButton:mouse_default_cursor_shape")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "Movement"
+
+[sub_resource type="Animation" id=14]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 640, 360 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../ColorRect/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer7/PlayButton:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 250, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../ColorRect/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer7/PlayButton:rect_rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../ColorRect/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer7/PlayButton:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../ColorRect/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer7/PlayButton:mouse_default_cursor_shape")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 2 ]
+}
+
 [node name="MainMenu" type="Node2D"]
 script = ExtResource( 4 )
 
@@ -351,6 +489,9 @@ root_node = NodePath("../ColorRect/TitleLabel")
 anims/RESET = SubResource( 6 )
 anims/TitleColor = SubResource( 7 )
 anims/TwoTitle = SubResource( 9 )
+
+[node name="LevelSelector" parent="." instance=ExtResource( 6 )]
+position = Vector2( 0, 720 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_right = 1280.0
@@ -398,9 +539,11 @@ margin_left = 250.0
 margin_right = 1030.0
 margin_bottom = 83.0
 focus_mode = 0
+mouse_default_cursor_shape = 2
 custom_fonts/font = SubResource( 2 )
 custom_styles/hover = SubResource( 4 )
 custom_styles/pressed = SubResource( 5 )
+custom_styles/disabled = SubResource( 16 )
 custom_styles/normal = SubResource( 3 )
 text = "Jugar"
 script = ExtResource( 2 )
@@ -417,6 +560,7 @@ margin_left = 250.0
 margin_right = 1030.0
 margin_bottom = 83.0
 focus_mode = 0
+mouse_default_cursor_shape = 2
 custom_fonts/font = SubResource( 2 )
 custom_styles/hover = SubResource( 4 )
 custom_styles/pressed = SubResource( 5 )
@@ -435,6 +579,7 @@ margin_left = 250.0
 margin_right = 1030.0
 margin_bottom = 83.0
 focus_mode = 0
+mouse_default_cursor_shape = 2
 custom_fonts/font = SubResource( 2 )
 custom_styles/hover = SubResource( 4 )
 custom_styles/pressed = SubResource( 5 )
@@ -461,3 +606,15 @@ root_node = NodePath("../ColorRect/TitleLabel")
 anims/RESET = SubResource( 10 )
 anims/TitleColor = SubResource( 11 )
 anims/TwoTitle = SubResource( 12 )
+
+[node name="Camera" type="Camera2D" parent="."]
+unique_name_in_owner = true
+position = Vector2( 640, 360 )
+current = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera"]
+anims/MoveDownToPlay = SubResource( 15 )
+anims/Movement = SubResource( 13 )
+anims/RESET = SubResource( 14 )
+
+[connection signal="go_back" from="LevelSelector" to="." method="_on_LevelSelector_go_back"]

@@ -1,15 +1,26 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/GridContainer.gd" type="Script" id=2]
+[ext_resource path="res://scenes/LevelSelector.gd" type="Script" id=3]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Fade"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("../../Node2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
 
 [node name="LevelSelector" type="Node2D"]
-
-[node name="Sky" type="ColorRect" parent="."]
-margin_left = -1156.0
-margin_top = -925.0
-margin_right = 2465.0
-margin_bottom = 1445.0
-color = Color( 0.164706, 0.0588235, 0.254902, 1 )
+script = ExtResource( 3 )
 
 [node name="ViewContainer" type="ColorRect" parent="."]
 margin_right = 1280.0
@@ -39,3 +50,40 @@ custom_constants/vseparation = 40
 custom_constants/hseparation = 40
 columns = 6
 script = ExtResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ViewContainer/MarginContainer"]
+unique_name_in_owner = true
+anims/Fade = SubResource( 1 )
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="ColorRect2" type="ColorRect" parent="Node2D"]
+margin_right = 1285.0
+margin_bottom = 96.0
+rect_pivot_offset = Vector2( 1180, 139 )
+mouse_filter = 2
+
+[node name="ColorRect4" type="ColorRect" parent="Node2D"]
+margin_right = 97.0
+margin_bottom = 722.0
+rect_pivot_offset = Vector2( 40, 601 )
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="Node2D"]
+margin_left = 1195.0
+margin_right = 1285.0
+margin_bottom = 722.0
+rect_pivot_offset = Vector2( 40, 601 )
+mouse_filter = 2
+
+[node name="ColorRect3" type="ColorRect" parent="Node2D"]
+margin_left = 2.0
+margin_top = 636.0
+margin_right = 1287.0
+margin_bottom = 725.0
+rect_pivot_offset = Vector2( 1180, 139 )
+mouse_filter = 2
+
+[connection signal="gui_input" from="ViewContainer" to="." method="_on_ViewContainer_gui_input"]
+[connection signal="gui_input" from="ViewContainer/MarginContainer" to="." method="_on_MarginContainer_gui_input"]
+[connection signal="gui_input" from="ViewContainer/MarginContainer/CenterContainer" to="." method="_on_CenterContainer_gui_input"]
