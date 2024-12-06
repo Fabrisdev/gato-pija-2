@@ -8,4 +8,5 @@ func complete_level():
 
 func _on_BabyBottle_body_entered(body):
 	if body.is_in_group("player"):
+		$"../Player".can_die = false
 		$AnimationPlayer.play("obtain")

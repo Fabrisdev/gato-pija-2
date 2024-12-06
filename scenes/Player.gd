@@ -12,17 +12,18 @@ var firstRotationDone = false
 var time_stopped = false
 var skill_equipped = "NONE"
 var skill_on_cooldown = false
+var can_die = true
 
 signal died
 
 func _physics_process(delta):
-	if has_died():
+	if has_died() and can_die:
 		emit_signal("died")
 		handle_death()
 		return
 	if time_stopped:
 		return
-	if has_fell():
+	if has_fell() and can_die:
 		emit_signal("died")
 		handle_death()
 	controlMovement(delta)
