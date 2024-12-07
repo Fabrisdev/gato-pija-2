@@ -1,13 +1,18 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=12 format=2]
 
+[ext_resource path="res://sprites/level-selector-fade-bottom.png" type="Texture" id=1]
 [ext_resource path="res://scenes/GridContainer.gd" type="Script" id=2]
 [ext_resource path="res://scenes/LevelSelector.gd" type="Script" id=3]
+[ext_resource path="res://sprites/level-selector-fade-left.png" type="Texture" id=4]
+[ext_resource path="res://sprites/level-selector-fade-top.png" type="Texture" id=5]
+[ext_resource path="res://sprites/level-selector-fade-right.png" type="Texture" id=6]
 
-[sub_resource type="Animation" id=1]
-resource_name = "Fade"
+[sub_resource type="Animation" id=2]
+resource_name = "FadeBottom"
 length = 2.0
+loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("../../Node2D:modulate")
+tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -16,7 +21,109 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 1, 2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+"values": [ Color( 1, 1, 1, 0 ), Color( 0, 0, 0, 0.392157 ), Color( 0, 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "FadeLeft"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("../FadeLeftSprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.392157 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "FadeRight"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("../FadeRightSprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.392157 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "FadeTop"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("../FadeTopSprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.392157 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../FadeRightSprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../FadeTopSprite:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../FadeLeftSprite:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
 }
 
 [node name="LevelSelector" type="Node2D"]
@@ -51,39 +158,73 @@ custom_constants/hseparation = 40
 columns = 6
 script = ExtResource( 2 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="ViewContainer/MarginContainer"]
-unique_name_in_owner = true
-anims/Fade = SubResource( 1 )
+[node name="HoverDetector" type="Node2D" parent="."]
 
-[node name="Node2D" type="Node2D" parent="."]
-
-[node name="ColorRect2" type="ColorRect" parent="Node2D"]
-margin_right = 1285.0
+[node name="HoverDetectorTop" type="ColorRect" parent="HoverDetector"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 101.0
+margin_right = 1179.0
 margin_bottom = 96.0
 rect_pivot_offset = Vector2( 1180, 139 )
-mouse_filter = 2
 
-[node name="ColorRect4" type="ColorRect" parent="Node2D"]
-margin_right = 97.0
+[node name="HoverDetectorLeft" type="ColorRect" parent="HoverDetector"]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 100.0
 margin_bottom = 722.0
 rect_pivot_offset = Vector2( 40, 601 )
-mouse_filter = 2
 
-[node name="ColorRect" type="ColorRect" parent="Node2D"]
-margin_left = 1195.0
-margin_right = 1285.0
+[node name="HoverDetectorRight" type="ColorRect" parent="HoverDetector"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 1180.0
+margin_right = 1280.0
 margin_bottom = 722.0
 rect_pivot_offset = Vector2( 40, 601 )
-mouse_filter = 2
 
-[node name="ColorRect3" type="ColorRect" parent="Node2D"]
-margin_left = 2.0
-margin_top = 636.0
-margin_right = 1287.0
-margin_bottom = 725.0
-rect_pivot_offset = Vector2( 1180, 139 )
-mouse_filter = 2
+[node name="HoverDetectorBottom" type="ColorRect" parent="HoverDetector"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 101.0
+margin_top = 631.0
+margin_right = 1180.0
+margin_bottom = 720.0
+rect_pivot_offset = Vector2( 1825, -125 )
 
-[connection signal="gui_input" from="ViewContainer" to="." method="_on_ViewContainer_gui_input"]
-[connection signal="gui_input" from="ViewContainer/MarginContainer" to="." method="_on_MarginContainer_gui_input"]
-[connection signal="gui_input" from="ViewContainer/MarginContainer/CenterContainer" to="." method="_on_CenterContainer_gui_input"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../FadeBottomSprite")
+anims/FadeBottom = SubResource( 2 )
+anims/FadeLeft = SubResource( 4 )
+anims/FadeRight = SubResource( 5 )
+anims/FadeTop = SubResource( 6 )
+anims/RESET = SubResource( 3 )
+
+[node name="FadeBottomSprite" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+texture = ExtResource( 1 )
+offset = Vector2( 640, 360 )
+
+[node name="FadeLeftSprite" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+texture = ExtResource( 4 )
+offset = Vector2( 640, 360 )
+
+[node name="FadeTopSprite" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+texture = ExtResource( 5 )
+offset = Vector2( 640, 360 )
+
+[node name="FadeRightSprite" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+texture = ExtResource( 6 )
+offset = Vector2( 640, 360 )
+
+[connection signal="gui_input" from="HoverDetector/HoverDetectorTop" to="." method="_on_HoverDetectorTop_gui_input"]
+[connection signal="mouse_entered" from="HoverDetector/HoverDetectorTop" to="." method="_on_HoverDetectorTop_mouse_entered"]
+[connection signal="mouse_exited" from="HoverDetector/HoverDetectorTop" to="." method="_on_HoverDetectorTop_mouse_exited"]
+[connection signal="gui_input" from="HoverDetector/HoverDetectorLeft" to="." method="_on_HoverDetectorLeft_gui_input"]
+[connection signal="mouse_entered" from="HoverDetector/HoverDetectorLeft" to="." method="_on_HoverDetectorLeft_mouse_entered"]
+[connection signal="mouse_exited" from="HoverDetector/HoverDetectorLeft" to="." method="_on_HoverDetectorLeft_mouse_exited"]
+[connection signal="gui_input" from="HoverDetector/HoverDetectorRight" to="." method="_on_HoverDetectorRight_gui_input"]
+[connection signal="mouse_entered" from="HoverDetector/HoverDetectorRight" to="." method="_on_HoverDetectorRight_mouse_entered"]
+[connection signal="mouse_exited" from="HoverDetector/HoverDetectorRight" to="." method="_on_HoverDetectorRight_mouse_exited"]
+[connection signal="gui_input" from="HoverDetector/HoverDetectorBottom" to="." method="_on_HoverDetectorBottom_gui_input"]
+[connection signal="mouse_entered" from="HoverDetector/HoverDetectorBottom" to="." method="_on_HoverDetectorBottom_mouse_entered"]
+[connection signal="mouse_exited" from="HoverDetector/HoverDetectorBottom" to="." method="_on_HoverDetectorBottom_mouse_exited"]

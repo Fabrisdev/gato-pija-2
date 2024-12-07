@@ -12,3 +12,4 @@ func _process(delta):
 
 func _on_LevelSelector_go_back():
 	$Camera/AnimationPlayer.play_backwards("MoveDownToPlay")
+	$Camera/AnimationPlayer.queue("RESET")
