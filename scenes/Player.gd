@@ -40,6 +40,7 @@ func has_fell():
 	
 func handle_death():
 	modulate = Color.red
+	$"%UI/SkillWheel".can_open_menu = false
 
 func controlMovement(delta: float):
 	motion.y += gravity
@@ -97,14 +98,6 @@ func controlMovement(delta: float):
 				rotatingLeft = true
 	motion = move_and_slide(motion, Vector2.UP)
 
-func _on_SkillWheel_skill_menu_opened():
-	time_stopped = true
-	$Manabar.visible = false
-
-func _on_SkillWheel_skill_menu_closed():
-	time_stopped = false
-	$Manabar.visible = true
-
 func handle_skill(skill_equipped, delta):
 	if skill_on_cooldown: return
 	if skill_equipped == "DASH":
@@ -125,10 +118,18 @@ func handle_skill(skill_equipped, delta):
 		
 	skill_on_cooldown = true
 
-func _on_SkillWheel_dash_skill_equipped():
+func _on_UI_dash_skill_equipped():
 	skill_equipped = "DASH"
 	print("Skill equipped: " + skill_equipped)
 
 
 func _on_CooldownTimer_timeout():
 	skill_on_cooldown = false
+
+func _on_UI_skill_menu_opened():
+	time_stopped = true
+	$Manabar.visible = false
+
+func _on_UI_skill_menu_closed():
+	time_stopped = false
+	$Manabar.visible = true

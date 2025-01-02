@@ -1,4 +1,4 @@
 extends CenterContainer
 
-func _on_Player_died():
+func show():
 	visible = true
