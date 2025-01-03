@@ -5,11 +5,11 @@ func _process(delta):
 		SceneTransition.change_scene("res://scenes/MainMenu.tscn")
 
 func _on_UI_skill_menu_opened():
-	set_modulate(Color(0.8, 0.8, 0.8))
+	$WorldTemplate.set_night()
 
 
 func _on_UI_skill_menu_closed():
-	set_modulate(Color(1, 1, 1))
+	$WorldTemplate.set_day()
 
 
 func _on_Player_died():

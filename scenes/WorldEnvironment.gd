@@ -1,9 +1,9 @@
 extends WorldEnvironment
 
 
-func _on_UI_skill_menu_opened():
+func set_night():
 	environment.adjustment_brightness = 0.33
 
 
-func _on_UI_skill_menu_closed():
+func set_day():
 	environment.adjustment_brightness = 1
