@@ -130,10 +130,12 @@ func _on_CooldownTimer_timeout():
 func _on_UI_skill_menu_opened():
 	time_stopped = true
 	$Manabar.visible = false
+	WorldThemePlayer.pause()
 
 func _on_UI_skill_menu_closed():
 	time_stopped = false
 	$Manabar.visible = true
+	WorldThemePlayer.resume()
 
 func _on_BabyBottle_level_completed():
 	can_die = false
