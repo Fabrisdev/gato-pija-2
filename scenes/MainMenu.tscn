@@ -597,6 +597,7 @@ custom_fonts/font = SubResource( 8 )
 text = "2"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
 stream = ExtResource( 3 )
 volume_db = -10.0
 autoplay = true

@@ -280,7 +280,10 @@ script = ExtResource( 2 )
 [node name="Coin3" parent="." instance=ExtResource( 13 )]
 position = Vector2( -522, -224 )
 
-[node name="Coin" parent="." instance=ExtResource( 13 )]
+[node name="Coin2" parent="." instance=ExtResource( 13 )]
+position = Vector2( -682, -149 )
+
+[node name="Coin1" parent="." instance=ExtResource( 13 )]
 position = Vector2( 11, -76 )
 
 [node name="BabyBottle" parent="." instance=ExtResource( 14 )]

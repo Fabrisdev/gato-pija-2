@@ -2,6 +2,7 @@ extends Node2D
 
 func _process(delta):
 	if Input.is_action_just_pressed("go to main menu"):
+		WorldThemePlayer.stop()
 		SceneTransition.change_scene("res://scenes/MainMenu.tscn")
 
 func _on_UI_skill_menu_opened():

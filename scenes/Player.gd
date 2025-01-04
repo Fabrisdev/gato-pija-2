@@ -133,3 +133,16 @@ func _on_UI_skill_menu_opened():
 func _on_UI_skill_menu_closed():
 	time_stopped = false
 	$Manabar.visible = true
+
+func _on_BabyBottle_level_completed():
+	can_die = false
+
+
+func _on_Coin1_coin_obtained():
+	$"%UI".set_first_coin_as_obtained()
+
+func _on_Coin2_coin_obtained():
+	$"%UI".set_second_coin_as_obtained()
+
+func _on_Coin3_coin_obtained():
+	$"%UI".set_third_coin_as_obtained()

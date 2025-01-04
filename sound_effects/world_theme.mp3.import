@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/world_theme.mp3-a41182e9182149ae852814114e050cff.mp3str"
+
+[deps]
+
+source_file="res://sound_effects/world_theme.mp3"
+dest_files=[ "res://.import/world_theme.mp3-a41182e9182149ae852814114e050cff.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

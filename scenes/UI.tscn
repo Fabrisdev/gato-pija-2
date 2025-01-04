@@ -34,30 +34,44 @@ script = ExtResource( 6 )
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 60.0
+margin_top = 60.0
 margin_bottom = -580.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
-margin_right = 1280.0
-margin_bottom = 140.0
+margin_right = 1220.0
+margin_bottom = 80.0
+custom_constants/separation = 5
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer"]
-margin_right = 60.0
-margin_bottom = 140.0
-rect_min_size = Vector2( 60, 42 )
+[node name="UICoin1" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+modulate = Color( 0, 0, 0, 1 )
+margin_right = 80.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 80, 0 )
 texture = ExtResource( 5 )
 expand = true
+stretch_mode = 5
 
-[node name="TextureRect2" type="TextureRect" parent="MarginContainer/HBoxContainer"]
-margin_left = 64.0
-margin_right = 84.0
-margin_bottom = 140.0
+[node name="UICoin2" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+modulate = Color( 0, 0, 0, 1 )
+margin_left = 85.0
+margin_right = 165.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 80, 0 )
 texture = ExtResource( 5 )
+stretch_mode = 5
 
-[node name="TextureRect3" type="TextureRect" parent="MarginContainer/HBoxContainer"]
-margin_left = 88.0
-margin_right = 108.0
-margin_bottom = 140.0
+[node name="UICoin3" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+modulate = Color( 0, 0, 0, 1 )
+margin_left = 170.0
+margin_right = 250.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 80, 0 )
 texture = ExtResource( 5 )
+stretch_mode = 5
 
 [connection signal="dash_skill_equipped" from="SkillWheel" to="." method="_on_SkillWheel_dash_skill_equipped"]
 [connection signal="dash_skill_equipped" from="SkillWheel" to="EquippedSkill" method="_on_SkillWheel_dash_skill_equipped"]

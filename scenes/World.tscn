@@ -37,5 +37,10 @@ void_level = 100
 [connection signal="skill_menu_opened" from="UI" to="." method="_on_UI_skill_menu_opened"]
 [connection signal="skill_menu_opened" from="UI" to="Player" method="_on_UI_skill_menu_opened"]
 [connection signal="died" from="Player" to="." method="_on_Player_died"]
+[connection signal="coin_obtained" from="WorldTemplate/Coin3" to="Player" method="_on_Coin3_coin_obtained"]
+[connection signal="coin_obtained" from="WorldTemplate/Coin2" to="Player" method="_on_Coin2_coin_obtained"]
+[connection signal="coin_obtained" from="WorldTemplate/Coin1" to="Player" method="_on_Coin1_coin_obtained"]
+[connection signal="level_completed" from="WorldTemplate/BabyBottle" to="UI" method="_on_BabyBottle_level_completed"]
+[connection signal="level_completed" from="WorldTemplate/BabyBottle" to="Player" method="_on_BabyBottle_level_completed"]
 
 [editable path="WorldTemplate"]
