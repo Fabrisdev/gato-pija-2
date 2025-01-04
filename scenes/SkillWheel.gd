@@ -3,6 +3,7 @@ var menu_opened = false
 signal skill_menu_opened
 signal skill_menu_closed
 signal dash_skill_equipped
+signal double_jump_skill_equipped
 var can_open_menu = true
 
 func _process(delta):
@@ -34,3 +35,8 @@ func close_menu():
 func _on_DashSkill_skill_equipped():
 	close_menu()
 	emit_signal("dash_skill_equipped")
+
+
+func _on_DoubleJumpSkill_skill_equipped():
+	close_menu()
+	emit_signal("double_jump_skill_equipped")

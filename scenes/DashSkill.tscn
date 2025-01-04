@@ -97,7 +97,7 @@ extents = Vector2( 129, 126 )
 script = ExtResource( 2 )
 
 [node name="Dash" type="Sprite" parent="."]
-position = Vector2( 0, -500 )
+position = Vector2( 0, -550 )
 scale = Vector2( 1e-05, 1e-05 )
 texture = ExtResource( 1 )
 
