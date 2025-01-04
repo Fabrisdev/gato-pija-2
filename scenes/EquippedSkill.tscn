@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://sprites/skills/dash.png" type="Texture" id=1]
 [ext_resource path="res://scenes/EquippedSkill.gd" type="Script" id=2]
 [ext_resource path="res://sprites/skills/cooldown_skill_circle.png" type="Texture" id=3]
+[ext_resource path="res://sprites/skills/doble_jump.png" type="Texture" id=4]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -160,3 +161,8 @@ texture = ExtResource( 3 )
 [node name="Animator" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 3 )
 anims/cooldown = SubResource( 4 )
+
+[node name="DoubleJumpSprite" type="Sprite" parent="."]
+visible = false
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 4 )

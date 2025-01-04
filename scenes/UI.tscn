@@ -75,6 +75,8 @@ stretch_mode = 5
 
 [connection signal="dash_skill_equipped" from="SkillWheel" to="." method="_on_SkillWheel_dash_skill_equipped"]
 [connection signal="dash_skill_equipped" from="SkillWheel" to="EquippedSkill" method="_on_SkillWheel_dash_skill_equipped"]
+[connection signal="double_jump_skill_equipped" from="SkillWheel" to="." method="_on_SkillWheel_double_jump_skill_equipped"]
+[connection signal="double_jump_skill_equipped" from="SkillWheel" to="EquippedSkill" method="_on_SkillWheel_double_jump_skill_equipped"]
 [connection signal="skill_menu_closed" from="SkillWheel" to="." method="_on_SkillWheel_skill_menu_closed"]
 [connection signal="skill_menu_closed" from="SkillWheel" to="Timer" method="_on_SkillWheel_skill_menu_closed"]
 [connection signal="skill_menu_closed" from="SkillWheel" to="EquippedSkill" method="_on_SkillWheel_skill_menu_closed"]

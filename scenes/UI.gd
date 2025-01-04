@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 signal dash_skill_equipped
+signal double_jump_skill_equipped
 signal skill_menu_opened
 signal skill_menu_closed
 
@@ -26,3 +27,7 @@ func set_second_coin_as_obtained():
 	
 func set_third_coin_as_obtained():
 	$"%UICoin3".set_modulate(Color(1,1,1,1))
+
+
+func _on_SkillWheel_double_jump_skill_equipped():
+	emit_signal("double_jump_skill_equipped")

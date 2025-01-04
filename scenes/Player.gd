@@ -13,7 +13,7 @@ var time_stopped = false
 var skill_equipped = "NONE"
 var skill_on_cooldown = false
 var can_die = true
-
+var has_already_used_double_jump = false
 signal died
 
 func _physics_process(delta):
@@ -56,6 +56,9 @@ func controlMovement(delta: float):
 		
 	if skill_equipped != "NONE" and Input.is_action_just_pressed("use skill"):
 		handle_skill(skill_equipped, delta)	
+		
+	if skill_equipped == "DOUBLE JUMP" and Input.is_action_just_pressed("jump"):
+		motion.y = handle_double_jump_skill(motion.y)
 	
 	if rotatingRight:
 		if not firstRotationDone:
@@ -115,8 +118,6 @@ func handle_skill(skill_equipped, delta):
 			motion.y = -dash_speed
 		if Input.is_action_pressed("left"):
 			motion.x = -dash_speed
-			
-		
 	skill_on_cooldown = true
 
 func _on_UI_dash_skill_equipped():
@@ -149,3 +150,20 @@ func _on_Coin2_coin_obtained():
 
 func _on_Coin3_coin_obtained():
 	$"%UI".set_third_coin_as_obtained()
+
+
+func _on_UI_double_jump_skill_equipped():
+	skill_equipped = "DOUBLE JUMP"
+	print("Skill equipped: " + skill_equipped)
+
+func handle_double_jump_skill(motion_y):
+	if is_on_floor(): 
+		has_already_used_double_jump = false
+		return motion_y
+	if has_already_used_double_jump: return motion_y
+	if $Manabar.remaining_mana < 20:
+		$NotEnoughManaPlayer.play()
+		return motion_y
+	$Manabar.reduce_mana(20)
+	has_already_used_double_jump = true
+	return motion_y - jump_force * 1.5

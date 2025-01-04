@@ -32,6 +32,7 @@ void_level = 100
 [node name="WorldTemplate" parent="." instance=ExtResource( 1 )]
 
 [connection signal="dash_skill_equipped" from="UI" to="Player" method="_on_UI_dash_skill_equipped"]
+[connection signal="double_jump_skill_equipped" from="UI" to="Player" method="_on_UI_double_jump_skill_equipped"]
 [connection signal="skill_menu_closed" from="UI" to="." method="_on_UI_skill_menu_closed"]
 [connection signal="skill_menu_closed" from="UI" to="Player" method="_on_UI_skill_menu_closed"]
 [connection signal="skill_menu_opened" from="UI" to="." method="_on_UI_skill_menu_opened"]
