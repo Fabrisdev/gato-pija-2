@@ -110,11 +110,12 @@ func handle_skill(skill_equipped, delta):
 		$DashSkillActivatedPlayer.play()
 		$"../UI/EquippedSkill".play_cooldown_animation()
 		if Input.is_action_pressed("right"):
-			motion.x = dash_speed
+			motion.x = dash_speed + gravity
 		if Input.is_action_pressed("jump") or Input.is_action_pressed("look up joystick"):
 			motion.y = -dash_speed
 		if Input.is_action_pressed("left"):
 			motion.x = -dash_speed
+			
 		
 	skill_on_cooldown = true
 

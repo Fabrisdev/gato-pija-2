@@ -5,3 +5,6 @@ func play():
 	
 func stop():
 	$AudioStreamPlayer.stop()
+
+func is_playing():
+	return $AudioStreamPlayer.is_playing()

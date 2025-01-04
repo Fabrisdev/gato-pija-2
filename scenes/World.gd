@@ -1,5 +1,9 @@
 extends Node2D
 
+func _ready():
+	if WorldThemePlayer.is_playing(): return
+	WorldThemePlayer.play()
+
 func _process(delta):
 	if Input.is_action_just_pressed("go to main menu"):
 		WorldThemePlayer.stop()
