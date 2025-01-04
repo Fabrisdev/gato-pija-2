@@ -165,5 +165,6 @@ func handle_double_jump_skill(motion_y):
 		$NotEnoughManaPlayer.play()
 		return motion_y
 	$Manabar.reduce_mana(20)
+	$DoubleJumpSkillActivatedPlayer.play()
 	has_already_used_double_jump = true
 	return motion_y - jump_force * 1.5
