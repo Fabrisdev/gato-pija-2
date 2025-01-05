@@ -56,7 +56,9 @@ func controlMovement(delta: float):
 	
 	if skill_equipped != "NONE" and Input.is_action_just_pressed("use skill"):
 		handle_skill(skill_equipped, delta)	
-		
+	
+	if is_on_floor(): 
+		has_already_used_double_jump = false
 	if skill_equipped == "DOUBLE JUMP" and Input.is_action_just_pressed("jump"):
 		motion.y = handle_double_jump_skill(motion.y)
 	
@@ -157,13 +159,17 @@ func _on_UI_double_jump_skill_equipped():
 	print("Skill equipped: " + skill_equipped)
 
 func handle_double_jump_skill(motion_y):
+	print('1')
 	if is_on_floor(): 
 		has_already_used_double_jump = false
 		return motion_y
+	print('2', has_already_used_double_jump)
 	if has_already_used_double_jump: return motion_y
+	print('2.5')
 	if $Manabar.remaining_mana < 20:
 		$NotEnoughManaPlayer.play()
 		return motion_y
+	print('3')
 	$Manabar.reduce_mana(20)
 	$DoubleJumpSkillActivatedPlayer.play()
 	has_already_used_double_jump = true
