@@ -53,7 +53,7 @@ func controlMovement(delta: float):
 			motion.x += speed * 0.1
 		else:
 			motion.x = lerp(motion.x, 0, 0.2)
-		
+	
 	if skill_equipped != "NONE" and Input.is_action_just_pressed("use skill"):
 		handle_skill(skill_equipped, delta)	
 		
@@ -113,7 +113,7 @@ func handle_skill(skill_equipped, delta):
 		$DashSkillActivatedPlayer.play()
 		$"../UI/EquippedSkill".play_cooldown_animation()
 		if Input.is_action_pressed("right"):
-			motion.x = dash_speed + gravity
+			motion.x = dash_speed
 		if Input.is_action_pressed("jump") or Input.is_action_pressed("look up joystick"):
 			motion.y = -dash_speed
 		if Input.is_action_pressed("left"):
@@ -167,4 +167,4 @@ func handle_double_jump_skill(motion_y):
 	$Manabar.reduce_mana(20)
 	$DoubleJumpSkillActivatedPlayer.play()
 	has_already_used_double_jump = true
-	return motion_y - jump_force * 1.5
+	return -jump_force * 1.5
