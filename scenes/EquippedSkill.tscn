@@ -135,6 +135,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [ 0.0, 0.5 ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("CooldownCircle:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
 
 [node name="EquippedSkill" type="Control"]
 anchor_left = 1.0

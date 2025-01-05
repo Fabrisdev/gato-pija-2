@@ -31,5 +31,4 @@ func _on_SkillWheel_skill_menu_opened():
 	hide_skill()
 	
 func play_cooldown_animation():
-	$CooldownCircle.visible = true
 	$Animator.play("cooldown")
