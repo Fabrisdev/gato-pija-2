@@ -166,5 +166,6 @@ func handle_double_jump_skill(motion_y):
 		return motion_y
 	$Manabar.reduce_mana(20)
 	$DoubleJumpSkillActivatedPlayer.play()
+	print('hola')
 	has_already_used_double_jump = true
 	return motion_y - jump_force * 1.5
