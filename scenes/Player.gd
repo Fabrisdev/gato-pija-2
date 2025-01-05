@@ -71,14 +71,11 @@ func controlMovement(delta: float):
 			else:
 				rotate_player(0.15)
 		else:
-			print(get_player_rotation_degrees())
 			if floor(abs(get_player_rotation_degrees())) in range(0, 10) || floor(abs(get_player_rotation_degrees())) in range(350, 370):
-				print('hola')
 				set_player_rotation_degrees(0)
 				rotatingRight = false
 				firstRotationDone = false
 			else:
-				print('buenas')
 				rotate_player(0.15)
 	
 	if rotatingLeft:
