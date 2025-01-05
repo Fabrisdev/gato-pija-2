@@ -64,35 +64,38 @@ func controlMovement(delta: float):
 	
 	if rotatingRight:
 		if not firstRotationDone:
-			if floor(abs(rotation_degrees)) in range(170, 179):
-				rotation_degrees = 180
+			if floor(abs(get_player_rotation_degrees())) in range(170, 179):
+				set_player_rotation_degrees(180)
 				rotatingRight = false
 				firstRotationDone = true
 			else:
-				rotate(0.15)
+				rotate_player(0.15)
 		else:
-			if floor(abs(rotation_degrees)) in range(0, 10):
-				rotation_degrees = 0
+			print(get_player_rotation_degrees())
+			if floor(abs(get_player_rotation_degrees())) in range(0, 10) || floor(abs(get_player_rotation_degrees())) in range(350, 370):
+				print('hola')
+				set_player_rotation_degrees(0)
 				rotatingRight = false
 				firstRotationDone = false
 			else:
-				rotate(0.15)
+				print('buenas')
+				rotate_player(0.15)
 	
 	if rotatingLeft:
 		if not firstRotationDone:
-			if floor(abs(rotation_degrees)) in range(170, 179):
-				rotation_degrees = 180
+			if floor(abs(get_player_rotation_degrees())) in range(170, 179):
+				set_player_rotation_degrees(180)
 				rotatingLeft = false
 				firstRotationDone = true
 			else:
-				rotate(-0.15)
+				rotate_player(-0.15)
 		else:
-			if floor(abs(rotation_degrees)) in range(0, 10):
-				rotation_degrees = 0
+			if floor(abs(get_player_rotation_degrees())) in range(0, 10):
+				set_player_rotation_degrees(0)
 				rotatingLeft = false
 				firstRotationDone = false
 			else:
-				rotate(-0.15)
+				rotate_player(-0.15)
 				
 	if is_on_floor():
 		if Input.is_action_just_pressed("jump"):
@@ -169,4 +172,16 @@ func handle_double_jump_skill(motion_y):
 	$Manabar.reduce_mana(20)
 	$DoubleJumpSkillActivatedPlayer.play()
 	has_already_used_double_jump = true
+	$DoubleJumpParticles.emit()
 	return -jump_force * 1.5
+
+func rotate_player(rotation_degrees):
+	$Sprite.rotate(rotation_degrees)
+	$CollisionShape2D.rotate(rotation_degrees)
+	
+func get_player_rotation_degrees():
+	return $Sprite.rotation_degrees
+	
+func set_player_rotation_degrees(rotation_degrees):
+	$Sprite.rotation_degrees = rotation_degrees
+	$CollisionShape2D.rotation_degrees = rotation_degrees
