@@ -31,7 +31,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 1, 1 ) ]
+"values": [ Vector2( 0, 0 ), Vector2( 0.25, 0.25 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("InteractableArea:position")
@@ -71,7 +71,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.3, 0.4, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 2, 2 ), Vector2( 2, 2 ), Vector2( 1, 1 ) ]
+"values": [ Vector2( 0.25, 0.25 ), Vector2( 0.5, 0.5 ), Vector2( 0.5, 0.5 ), Vector2( 0.25, 0.25 ) ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -87,11 +87,11 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ) ]
+"values": [ Vector2( 0.25, 0.25 ), Vector2( 0.3, 0.3 ) ]
 }
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 129, 126 )
+extents = Vector2( 98, 90.5 )
 
 [node name="DashSkill" type="Node2D"]
 script = ExtResource( 2 )
@@ -112,7 +112,7 @@ position = Vector2( 0, -500 )
 scale = Vector2( 1e-05, 1e-05 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableArea"]
-position = Vector2( 4, 3 )
+position = Vector2( 2, 5.5 )
 shape = SubResource( 2 )
 
 [node name="HoverSkillAudioPlayer" type="AudioStreamPlayer" parent="."]

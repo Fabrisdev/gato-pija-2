@@ -37,10 +37,12 @@ anchor_bottom = 1.0
 margin_left = 60.0
 margin_top = 60.0
 margin_bottom = -580.0
+mouse_filter = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 margin_right = 1220.0
 margin_bottom = 80.0
+mouse_filter = 2
 custom_constants/separation = 5
 
 [node name="UICoin1" type="TextureRect" parent="MarginContainer/HBoxContainer"]
