@@ -32,3 +32,9 @@ func _on_SkillWheel_skill_menu_opened():
 	
 func play_cooldown_animation():
 	$Animator.play("cooldown")
+	
+func play_set_on_cooldown_animation():
+	$Animator.play("set_on_cooldown")
+	
+func play_reset_cooldown_animation():
+	$Animator.play("RESET")

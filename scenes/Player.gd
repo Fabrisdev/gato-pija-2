@@ -59,6 +59,8 @@ func controlMovement(delta: float):
 		
 	if is_on_floor(): 
 		has_already_used_double_jump = false
+		if skill_equipped == "DOUBLE JUMP":
+			$"../UI/EquippedSkill".play_reset_cooldown_animation()
 	if skill_equipped == "DOUBLE JUMP" and Input.is_action_just_pressed("jump"):
 		motion.y = handle_double_jump_skill(motion.y)
 	
@@ -167,6 +169,7 @@ func _on_UI_double_jump_skill_equipped():
 func handle_double_jump_skill(motion_y):
 	if is_on_floor(): 
 		has_already_used_double_jump = false
+		$"../UI/EquippedSkill".play_reset_cooldown_animation()
 		return motion_y
 	if has_already_used_double_jump: return motion_y
 	if $Manabar.remaining_mana < 20:
@@ -176,6 +179,7 @@ func handle_double_jump_skill(motion_y):
 	$DoubleJumpSkillActivatedPlayer.play()
 	has_already_used_double_jump = true
 	$DoubleJumpParticles.emit()
+	$"../UI/EquippedSkill".play_set_on_cooldown_animation()
 	return -jump_force * 1.5
 
 func rotate_player(rotation_degrees):
