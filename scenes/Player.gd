@@ -127,7 +127,6 @@ func controlMovement(delta: float):
 func handle_skill(skill_equipped, delta):
 	if skill_on_cooldown: return
 	if skill_equipped == "DASH": handle_dash_skill()
-	skill_on_cooldown = true
 
 func _on_UI_dash_skill_equipped():
 	skill_equipped = "DASH"
@@ -205,3 +204,4 @@ func handle_dash_skill():
 		motion.y = -dash_speed
 	if Input.is_action_pressed("left"):
 		motion.x = -dash_speed
+	skill_on_cooldown = true
