@@ -56,7 +56,7 @@ func controlMovement(delta: float):
 	
 	if skill_equipped != "NONE" and Input.is_action_just_pressed("use skill"):
 		handle_skill(skill_equipped, delta)	
-	
+		
 	if is_on_floor(): 
 		has_already_used_double_jump = false
 	if skill_equipped == "DOUBLE JUMP" and Input.is_action_just_pressed("jump"):
@@ -93,7 +93,28 @@ func controlMovement(delta: float):
 				firstRotationDone = false
 			else:
 				rotate_player(-0.15)
-				
+	
+	if not is_on_floor() and Input.is_action_pressed("jump"):
+		var is_touching_left_side = false
+		var is_touching_right_side = false
+		for i in range(get_slide_count()):
+			var collision = get_slide_collision(i)
+			var normal = collision.normal
+			if normal.x < 0:
+				is_touching_right_side = true
+			elif normal.x > 0:
+				is_touching_left_side = true
+		if is_touching_left_side:
+			motion.y = -jump_force * 1.5
+			motion.x = jump_force * 1.5
+			$DoubleJumpParticles.emit()
+			$DoubleJumpSkillActivatedPlayer.play()
+		if is_touching_right_side:
+			motion.y = -jump_force * 1.5
+			motion.x = -jump_force * 1.5
+			$DoubleJumpParticles.emit()
+			$DoubleJumpSkillActivatedPlayer.play()
+		
 	if is_on_floor():
 		if Input.is_action_just_pressed("jump"):
 			motion.y = -jump_force
@@ -105,21 +126,7 @@ func controlMovement(delta: float):
 
 func handle_skill(skill_equipped, delta):
 	if skill_on_cooldown: return
-	if skill_equipped == "DASH":
-		if $Manabar.remaining_mana < 50: 
-			$NotEnoughManaPlayer.play()
-			return
-		$DashActiveTimer.start()
-		$CooldownTimer.start(1.5)
-		$Manabar.reduce_mana(50)
-		$DashSkillActivatedPlayer.play()
-		$"../UI/EquippedSkill".play_cooldown_animation()
-		if Input.is_action_pressed("right"):
-			motion.x = dash_speed
-		if Input.is_action_pressed("jump") or Input.is_action_pressed("look up joystick"):
-			motion.y = -dash_speed
-		if Input.is_action_pressed("left"):
-			motion.x = -dash_speed
+	if skill_equipped == "DASH": handle_dash_skill()
 	skill_on_cooldown = true
 
 func _on_UI_dash_skill_equipped():
@@ -182,3 +189,19 @@ func get_player_rotation_degrees():
 func set_player_rotation_degrees(rotation_degrees):
 	$Sprite.rotation_degrees = rotation_degrees
 	$CollisionShape2D.rotation_degrees = rotation_degrees
+
+func handle_dash_skill():
+	if $Manabar.remaining_mana < 50: 
+		$NotEnoughManaPlayer.play()
+		return
+	$DashActiveTimer.start()
+	$CooldownTimer.start(1.5)
+	$Manabar.reduce_mana(50)
+	$DashSkillActivatedPlayer.play()
+	$"../UI/EquippedSkill".play_cooldown_animation()
+	if Input.is_action_pressed("right"):
+		motion.x = dash_speed
+	if Input.is_action_pressed("jump") or Input.is_action_pressed("look up joystick"):
+		motion.y = -dash_speed
+	if Input.is_action_pressed("left"):
+		motion.x = -dash_speed
