@@ -180,6 +180,7 @@ func handle_double_jump_skill(motion_y):
 	has_already_used_double_jump = true
 	$DoubleJumpParticles.emit()
 	$"../UI/EquippedSkill".play_set_on_cooldown_animation()
+	Input.start_joy_vibration(0, 0.2, 0.2, 0.2)
 	return -jump_force * 1.5
 
 func rotate_player(rotation_degrees):
@@ -202,6 +203,7 @@ func handle_dash_skill():
 	$Manabar.reduce_mana(50)
 	$DashSkillActivatedPlayer.play()
 	$"../UI/EquippedSkill".play_cooldown_animation()
+	Input.start_joy_vibration(0, 0.2, 0.2, 0.6)
 	if Input.is_action_pressed("right"):
 		motion.x = dash_speed
 	if Input.is_action_pressed("jump") or Input.is_action_pressed("look up joystick"):
