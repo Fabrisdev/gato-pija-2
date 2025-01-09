@@ -96,26 +96,8 @@ func controlMovement(delta: float):
 			else:
 				rotate_player(-0.15)
 	
-	if not is_on_floor() and Input.is_action_pressed("jump"):
-		var is_touching_left_side = false
-		var is_touching_right_side = false
-		for i in range(get_slide_count()):
-			var collision = get_slide_collision(i)
-			var normal = collision.normal
-			if normal.x < 0:
-				is_touching_right_side = true
-			elif normal.x > 0:
-				is_touching_left_side = true
-		if is_touching_left_side:
-			motion.y = -jump_force * 1.5
-			motion.x = jump_force * 1.5
-			$DoubleJumpParticles.emit()
-			$DoubleJumpSkillActivatedPlayer.play()
-		if is_touching_right_side:
-			motion.y = -jump_force * 1.5
-			motion.x = -jump_force * 1.5
-			$DoubleJumpParticles.emit()
-			$DoubleJumpSkillActivatedPlayer.play()
+	if not is_on_floor() and Input.is_action_just_pressed("jump"):
+		handle_wall_jump()
 		
 	if is_on_floor():
 		if Input.is_action_just_pressed("jump"):
@@ -211,3 +193,24 @@ func handle_dash_skill():
 	if Input.is_action_pressed("left"):
 		motion.x = -dash_speed
 	skill_on_cooldown = true
+
+func handle_wall_jump():
+	var is_touching_left_side = false
+	var is_touching_right_side = false
+	for i in range(get_slide_count()):
+		var collision = get_slide_collision(i)
+		var normal = collision.normal
+		if normal.x < 0:
+			is_touching_right_side = true
+		elif normal.x > 0:
+			is_touching_left_side = true
+	if is_touching_left_side:
+		motion.y = -jump_force * 1.5
+		motion.x = jump_force * 1.5
+		$DoubleJumpParticles.emit()
+		$DoubleJumpSkillActivatedPlayer.play()
+	if is_touching_right_side:
+		motion.y = -jump_force * 1.5
+		motion.x = -jump_force * 1.5
+		$DoubleJumpParticles.emit()
+		$DoubleJumpSkillActivatedPlayer.play()
