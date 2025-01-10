@@ -5,6 +5,7 @@ export var speed = 120
 export var jump_force = 150
 export var void_level = 300
 export var dash_speed = 350
+var diagonal_dash_speed = sqrt(pow(dash_speed, 2) / 2)
 var motion = Vector2()
 var rotatingRight = false
 var rotatingLeft = false
@@ -53,6 +54,10 @@ func controlMovement(delta: float):
 			motion.x += speed * 0.1
 		else:
 			motion.x = lerp(motion.x, 0, 0.2)
+	else:
+		motion.y -= gravity
+		if is_on_ceiling() || is_on_floor() || is_on_wall():
+			$DashActiveTimer.stop()
 	
 	if skill_equipped != "NONE" and Input.is_action_just_pressed("use skill"):
 		handle_skill(skill_equipped, delta)	
@@ -177,22 +182,52 @@ func set_player_rotation_degrees(rotation_degrees):
 	$CollisionShape2D.rotation_degrees = rotation_degrees
 
 func handle_dash_skill():
+	if is_on_floor(): return
 	if $Manabar.remaining_mana < 50: 
 		$NotEnoughManaPlayer.play()
 		return
+	if not Input.is_action_pressed("left") and not Input.is_action_pressed("right") and not Input.is_action_pressed("down") and not Input.is_action_pressed("look up joystick"):
+		return
 	$DashActiveTimer.start()
-	$CooldownTimer.start(1.5)
+	$CooldownTimer.start(0.5)
 	$Manabar.reduce_mana(50)
 	$DashSkillActivatedPlayer.play()
 	$"../UI/EquippedSkill".play_cooldown_animation()
 	Input.start_joy_vibration(0, 0.2, 0.2, 0.6)
-	if Input.is_action_pressed("right"):
-		motion.x = dash_speed
-	if Input.is_action_pressed("jump") or Input.is_action_pressed("look up joystick"):
-		motion.y = -dash_speed
+	motion.x = 0
+	motion.y = 0
+	handle_dash_input()
+	skill_on_cooldown = true
+
+func handle_dash_input():
+	if Input.is_action_pressed("left") and Input.is_action_pressed("look up joystick"):
+		motion.x = -diagonal_dash_speed
+		motion.y = -diagonal_dash_speed
+		return
+	if Input.is_action_pressed("right") and Input.is_action_pressed("look up joystick"):
+		motion.x = diagonal_dash_speed
+		motion.y = -diagonal_dash_speed
+		return
+	if Input.is_action_pressed("left") and Input.is_action_pressed("down"):
+		motion.x = -diagonal_dash_speed
+		motion.y = diagonal_dash_speed
+		return
+	if Input.is_action_pressed("right") and Input.is_action_pressed("down"):
+		motion.x = diagonal_dash_speed
+		motion.y = diagonal_dash_speed
+		return
 	if Input.is_action_pressed("left"):
 		motion.x = -dash_speed
-	skill_on_cooldown = true
+		return
+	if Input.is_action_pressed("right"):
+		motion.x = dash_speed
+		return
+	if Input.is_action_pressed("look up joystick"):
+		motion.y = -dash_speed
+		return
+	if Input.is_action_pressed("down"):
+		motion.y = dash_speed
+		return
 
 func handle_wall_jump():
 	var is_touching_left_side = false

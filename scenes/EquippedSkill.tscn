@@ -119,10 +119,22 @@ tracks/2/keys = {
 "update": 1,
 "values": [ false ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("CooldownCircle:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.6, 0.6 ) ]
+}
 
 [sub_resource type="Animation" id=4]
 resource_name = "cooldown"
-length = 1.5
+length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("CooldownCircle:material:shader_param/fill_ratio")
 tracks/0/interp = 1
@@ -130,7 +142,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1.5 ),
+"times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ 1.0, 0.0 ]
@@ -142,7 +154,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 1.5 ),
+"times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ 0.0, 0.5 ]
@@ -154,7 +166,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 1.5 ),
+"times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
@@ -236,7 +248,7 @@ visible = false
 modulate = Color( 1, 1, 1, 0.470588 )
 material = SubResource( 2 )
 position = Vector2( -5, 2 )
-scale = Vector2( 0.228735, 0.228735 )
+scale = Vector2( 0.6, 0.6 )
 texture = ExtResource( 3 )
 
 [node name="Animator" type="AnimationPlayer" parent="."]
