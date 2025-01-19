@@ -172,14 +172,12 @@ func handle_double_jump_skill(motion_y):
 
 func rotate_player(rotation_degrees):
 	$Sprite.rotate(rotation_degrees)
-	$CollisionShape2D.rotate(rotation_degrees)
 	
 func get_player_rotation_degrees():
 	return $Sprite.rotation_degrees
 	
 func set_player_rotation_degrees(rotation_degrees):
 	$Sprite.rotation_degrees = rotation_degrees
-	$CollisionShape2D.rotation_degrees = rotation_degrees
 
 func handle_dash_skill():
 	if is_on_floor(): return
