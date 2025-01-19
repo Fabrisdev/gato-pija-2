@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/Player.gd" type="Script" id=1]
 [ext_resource path="res://sprites/gato-pija-test-2.png" type="Texture" id=2]
@@ -8,9 +8,17 @@
 [ext_resource path="res://sound_effects/not_enough_mana.wav" type="AudioStream" id=6]
 [ext_resource path="res://sound_effects/double_jump_sound_effect.mp3" type="AudioStream" id=7]
 [ext_resource path="res://scenes/DoubleJumpParticles.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/PlayerTrail.gd" type="Script" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 11 )
+
+[sub_resource type="Curve" id=2]
+_data = [ Vector2( 0.0125, 0.0363636 ), 0.0, 0.0, 0, 0, Vector2( 0.979167, 0.936364 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0.435407, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 0.9375, 0, 1 )
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 1 )
@@ -50,5 +58,12 @@ stream = ExtResource( 6 )
 [node name="DoubleJumpSkillActivatedPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
 volume_db = -10.0
+
+[node name="DashTrail" type="Line2D" parent="."]
+z_index = -1
+width = 20.0
+width_curve = SubResource( 2 )
+gradient = SubResource( 3 )
+script = ExtResource( 9 )
 
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]
