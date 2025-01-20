@@ -6,11 +6,9 @@ export var jump_force = 150
 export var void_level = 300
 export var dash_speed = 350
 export var dash_cooldown = 0.35
+export var degrees_to_rotate_by = 0.15
 var diagonal_dash_speed = sqrt(pow(dash_speed, 2) / 2)
 var motion = Vector2()
-var rotatingRight = false
-var rotatingLeft = false
-var firstRotationDone = false
 var rotating_direction = 0
 var time_stopped = false
 var skill_on_cooldown = false
@@ -135,7 +133,7 @@ func handle_rotation():
 		if Input.is_action_pressed("right"): rotating_direction = 1
 		if Input.is_action_pressed("left"): rotating_direction = -1
 		if not Input.is_action_pressed("left") and not Input.is_action_pressed("right"): rotating_direction = 0
-	rotate_player(0.15 * rotating_direction)
+	rotate_player(degrees_to_rotate_by * rotating_direction)
 	if is_on_floor() or is_on_wall(): set_player_rotation_degrees(stepify(get_player_rotation_degrees(), 90))
 
 func handle_jump():
