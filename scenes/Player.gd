@@ -11,6 +11,7 @@ var motion = Vector2()
 var rotatingRight = false
 var rotatingLeft = false
 var firstRotationDone = false
+var rotating_direction = 0
 var time_stopped = false
 var skill_on_cooldown = false
 var can_die = true
@@ -130,43 +131,12 @@ func handle_wall_jump():
 		$DoubleJumpSkillActivatedPlayer.play()
 		
 func handle_rotation():
-	if is_on_floor() and Input.is_action_just_pressed("jump"):
-		if Input.is_action_pressed("right"): rotatingRight = true
-		if Input.is_action_pressed("left"): rotatingLeft = true
-	if rotatingRight: handle_rotating_right()
-	if rotatingLeft: handle_rotating_left()
-
-func handle_rotating_left():
-	if not firstRotationDone:
-		if floor(abs(get_player_rotation_degrees())) in range(170, 179):
-			set_player_rotation_degrees(180)
-			rotatingLeft = false
-			firstRotationDone = true
-		else:
-			rotate_player(-0.15)
-	else:
-		if floor(abs(get_player_rotation_degrees())) in range(0, 10):
-			set_player_rotation_degrees(0)
-			rotatingLeft = false
-			firstRotationDone = false
-		else:
-			rotate_player(-0.15)
-
-func handle_rotating_right():
-	if not firstRotationDone:
-		if floor(abs(get_player_rotation_degrees())) in range(170, 179):
-			set_player_rotation_degrees(180)
-			rotatingRight = false
-			firstRotationDone = true
-		else:
-			rotate_player(0.15)
-	else:
-		if floor(abs(get_player_rotation_degrees())) in range(0, 10) or floor(abs(get_player_rotation_degrees())) in range(350, 370):
-			set_player_rotation_degrees(0)
-			rotatingRight = false
-			firstRotationDone = false
-		else:
-			rotate_player(0.15)
+	if is_on_floor():
+		if Input.is_action_pressed("right"): rotating_direction = 1
+		if Input.is_action_pressed("left"): rotating_direction = -1
+		if not Input.is_action_pressed("left") and not Input.is_action_pressed("right"): rotating_direction = 0
+	rotate_player(0.15 * rotating_direction)
+	if is_on_floor() or is_on_wall(): set_player_rotation_degrees(stepify(get_player_rotation_degrees(), 90))
 
 func handle_jump():
 	if is_on_floor() and Input.is_action_just_pressed("jump"): motion.y = -jump_force
