@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 export var gravity = 10
-export var speed = 120
+export var max_speed = 120
 export var jump_force = 150
 export var void_level = 300
 export var dash_speed = 350
@@ -129,8 +129,8 @@ func handle_wall_jump():
 func handle_rotation():
 	if is_on_floor():
 		if Input.is_action_pressed("right"): rotating_direction = 1
-		if Input.is_action_pressed("left"): rotating_direction = -1
-		if not Input.is_action_pressed("left") and not Input.is_action_pressed("right"): rotating_direction = 0
+		elif Input.is_action_pressed("left"): rotating_direction = -1
+		else: rotating_direction = 0
 	rotate_player(degrees_to_rotate_by * rotating_direction)
 	if is_on_floor() or is_on_wall(): set_player_rotation_degrees(stepify(get_player_rotation_degrees(), 90))
 
@@ -140,11 +140,9 @@ func handle_jump():
 func handle_movement():
 	if $DashActiveTimer.time_left != 0: return
 	motion.y += gravity
-	if Input.is_action_pressed("left"):
-		motion.x = clamp(motion.x, -speed, speed)
-		motion.x -= speed * 0.1
-	elif Input.is_action_pressed("right"):
-		motion.x = clamp(motion.x, -speed, speed)
-		motion.x += speed * 0.1
-	else:
-		motion.x = lerp(motion.x, 0, 0.2)
+	var direction = 0
+	if Input.is_action_pressed("left"): direction = -1
+	elif Input.is_action_pressed("right"): direction = 1
+	else: motion.x = lerp(motion.x, 0, 0.2)
+	motion.x += direction * max_speed * 0.1
+	motion.x = clamp(motion.x, -max_speed, max_speed)
