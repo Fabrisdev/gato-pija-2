@@ -12,23 +12,19 @@ var rotatingRight = false
 var rotatingLeft = false
 var firstRotationDone = false
 var time_stopped = false
-var skill_equipped = "NONE"
 var skill_on_cooldown = false
 var can_die = true
 var has_already_used_double_jump = false
 signal died
 
 func _physics_process(delta):
-	if has_died() and can_die:
-		emit_signal("died")
-		handle_death()
-		return
-	if time_stopped:
-		return
-	if has_fell() and can_die:
-		emit_signal("died")
-		handle_death()
-	controlMovement(delta)
+	if time_stopped: return
+	handle_death()
+	handle_movement()
+	handle_rotation()
+	handle_jump()
+	handle_skills()
+	motion = move_and_slide(motion, Vector2.UP)
 
 func has_died():
 	for i in get_slide_count():
@@ -41,79 +37,19 @@ func has_fell():
 	return position.y > void_level
 	
 func handle_death():
+	if not can_die: return
+	if not has_died() and not has_fell(): return
 	modulate = Color.red
-
-func controlMovement(delta: float):
-	motion.y += gravity
-	if $DashActiveTimer.time_left == 0:
-		if Input.is_action_pressed("left"):
-			motion.x = clamp(motion.x, -speed, speed)
-			motion.x -= speed * 0.1
-		elif Input.is_action_pressed("right"):
-			motion.x = clamp(motion.x, -speed, speed)
-			motion.x += speed * 0.1
-		else:
-			motion.x = lerp(motion.x, 0, 0.2)
-	else:
-		motion.y -= gravity
-		if is_on_ceiling() or is_on_floor() or is_on_wall(): $DashActiveTimer.stop()
-	if is_on_floor(): has_already_used_double_jump = false
-	if Input.is_action_just_pressed("jump") and not is_on_floor(): motion.y = handle_double_jump_skill(motion.y)
-	
-	if rotatingRight:
-		if not firstRotationDone:
-			if floor(abs(get_player_rotation_degrees())) in range(170, 179):
-				set_player_rotation_degrees(180)
-				rotatingRight = false
-				firstRotationDone = true
-			else:
-				rotate_player(0.15)
-		else:
-			if floor(abs(get_player_rotation_degrees())) in range(0, 10) or floor(abs(get_player_rotation_degrees())) in range(350, 370):
-				set_player_rotation_degrees(0)
-				rotatingRight = false
-				firstRotationDone = false
-			else:
-				rotate_player(0.15)
-	
-	if rotatingLeft:
-		if not firstRotationDone:
-			if floor(abs(get_player_rotation_degrees())) in range(170, 179):
-				set_player_rotation_degrees(180)
-				rotatingLeft = false
-				firstRotationDone = true
-			else:
-				rotate_player(-0.15)
-		else:
-			if floor(abs(get_player_rotation_degrees())) in range(0, 10):
-				set_player_rotation_degrees(0)
-				rotatingLeft = false
-				firstRotationDone = false
-			else:
-				rotate_player(-0.15)
-	
-	if is_on_floor():
-		if Input.is_action_just_pressed("jump"):
-			motion.y = -jump_force
-			if Input.is_action_pressed("right"):
-				rotatingRight = true
-			elif Input.is_action_pressed("left"):
-				rotatingLeft = true
-	
-	handle_skills()
-	motion = move_and_slide(motion, Vector2.UP)
+	emit_signal("died")
 
 func handle_skills():
+	if is_on_floor(): has_already_used_double_jump = false
+	if is_on_ceiling() or is_on_floor() or is_on_wall(): $DashActiveTimer.stop()
 	if Input.is_action_just_pressed("jump") and not is_on_floor(): handle_wall_jump()
+	if Input.is_action_just_pressed("jump") and not is_on_floor(): handle_double_jump_skill()
 	if Input.is_action_just_pressed("use dash"): handle_dash_skill()
 
-func _on_UI_dash_skill_equipped():
-	skill_equipped = "DASH"
-	print("Skill equipped: " + skill_equipped)
-
-
-func _on_CooldownTimer_timeout():
-	skill_on_cooldown = false
+func _on_CooldownTimer_timeout(): skill_on_cooldown = false
 
 func _on_UI_skill_menu_opened():
 	time_stopped = true
@@ -125,31 +61,18 @@ func _on_UI_skill_menu_closed():
 	$Manabar.visible = true
 	WorldThemePlayer.resume()
 
-func _on_BabyBottle_level_completed():
-	can_die = false
+func _on_BabyBottle_level_completed(): can_die = false
+func _on_Coin1_coin_obtained(): $"%UI".set_first_coin_as_obtained()
+func _on_Coin2_coin_obtained(): $"%UI".set_second_coin_as_obtained()
+func _on_Coin3_coin_obtained(): $"%UI".set_third_coin_as_obtained()
 
-
-func _on_Coin1_coin_obtained():
-	$"%UI".set_first_coin_as_obtained()
-
-func _on_Coin2_coin_obtained():
-	$"%UI".set_second_coin_as_obtained()
-
-func _on_Coin3_coin_obtained():
-	$"%UI".set_third_coin_as_obtained()
-
-
-func _on_UI_double_jump_skill_equipped():
-	skill_equipped = "DOUBLE JUMP"
-	print("Skill equipped: " + skill_equipped)
-
-func handle_double_jump_skill(motion_y):
-	if has_already_used_double_jump: return motion_y
+func handle_double_jump_skill():
+	if has_already_used_double_jump: return
 	$DoubleJumpSkillActivatedPlayer.play()
 	$DoubleJumpParticles.emit()
 	Input.start_joy_vibration(0, 0.2, 0.2, 0.2)
 	has_already_used_double_jump = true
-	return -jump_force * 1.5
+	motion.y = -jump_force * 1.5
 
 func rotate_player(rotation_degrees):
 	$Sprite.rotate(rotation_degrees)
@@ -205,3 +128,57 @@ func handle_wall_jump():
 		motion.x = -jump_force * 1.5
 		$DoubleJumpParticles.emit()
 		$DoubleJumpSkillActivatedPlayer.play()
+		
+func handle_rotation():
+	if is_on_floor() and Input.is_action_just_pressed("jump"):
+		if Input.is_action_pressed("right"): rotatingRight = true
+		if Input.is_action_pressed("left"): rotatingLeft = true
+	if rotatingRight: handle_rotating_right()
+	if rotatingLeft: handle_rotating_left()
+
+func handle_rotating_left():
+	if not firstRotationDone:
+		if floor(abs(get_player_rotation_degrees())) in range(170, 179):
+			set_player_rotation_degrees(180)
+			rotatingLeft = false
+			firstRotationDone = true
+		else:
+			rotate_player(-0.15)
+	else:
+		if floor(abs(get_player_rotation_degrees())) in range(0, 10):
+			set_player_rotation_degrees(0)
+			rotatingLeft = false
+			firstRotationDone = false
+		else:
+			rotate_player(-0.15)
+
+func handle_rotating_right():
+	if not firstRotationDone:
+		if floor(abs(get_player_rotation_degrees())) in range(170, 179):
+			set_player_rotation_degrees(180)
+			rotatingRight = false
+			firstRotationDone = true
+		else:
+			rotate_player(0.15)
+	else:
+		if floor(abs(get_player_rotation_degrees())) in range(0, 10) or floor(abs(get_player_rotation_degrees())) in range(350, 370):
+			set_player_rotation_degrees(0)
+			rotatingRight = false
+			firstRotationDone = false
+		else:
+			rotate_player(0.15)
+
+func handle_jump():
+	if is_on_floor() and Input.is_action_just_pressed("jump"): motion.y = -jump_force
+
+func handle_movement():
+	if $DashActiveTimer.time_left != 0: return
+	motion.y += gravity
+	if Input.is_action_pressed("left"):
+		motion.x = clamp(motion.x, -speed, speed)
+		motion.x -= speed * 0.1
+	elif Input.is_action_pressed("right"):
+		motion.x = clamp(motion.x, -speed, speed)
+		motion.x += speed * 0.1
+	else:
+		motion.x = lerp(motion.x, 0, 0.2)
