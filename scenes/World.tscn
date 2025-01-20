@@ -26,6 +26,7 @@ position = Vector2( -635, -167 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( -383, -136 )
+current = true
 zoom = Vector2( 0.6, 0.6 )
 
 [connection signal="dash_skill_equipped" from="UI" to="Player" method="_on_UI_dash_skill_equipped"]

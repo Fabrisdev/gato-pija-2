@@ -5,6 +5,7 @@ export var speed = 120
 export var jump_force = 150
 export var void_level = 300
 export var dash_speed = 350
+export var dash_cooldown = 0.35
 var diagonal_dash_speed = sqrt(pow(dash_speed, 2) / 2)
 var motion = Vector2()
 var rotatingRight = false
@@ -187,7 +188,7 @@ func handle_dash_skill():
 	if not Input.is_action_pressed("left") and not Input.is_action_pressed("right") and not Input.is_action_pressed("down") and not Input.is_action_pressed("look up joystick"):
 		return
 	$DashActiveTimer.start()
-	$CooldownTimer.start(0.5)
+	$CooldownTimer.start(dash_cooldown)
 	$Manabar.reduce_mana(50)
 	$DashSkillActivatedPlayer.play()
 	$"../UI/EquippedSkill".play_cooldown_animation()
