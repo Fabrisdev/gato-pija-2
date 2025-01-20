@@ -43,7 +43,6 @@ func handle_death():
 
 func handle_skills():
 	if is_on_floor(): has_already_used_double_jump = false
-	if is_on_ceiling() or is_on_floor() or is_on_wall(): $DashActiveTimer.stop()
 	if Input.is_action_just_pressed("jump") and not is_on_floor(): handle_wall_jump()
 	if Input.is_action_just_pressed("jump") and not is_on_floor(): handle_double_jump_skill()
 	if Input.is_action_just_pressed("use dash"): handle_dash_skill()
@@ -83,7 +82,6 @@ func set_player_rotation_degrees(rotation_degrees):
 	$Sprite.rotation_degrees = rotation_degrees
 
 func handle_dash_skill():
-	if is_on_floor(): return
 	if $CooldownTimer.time_left != 0: return
 	if $Manabar.remaining_mana < 50: 
 		$NotEnoughManaPlayer.play()
