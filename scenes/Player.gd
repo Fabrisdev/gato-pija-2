@@ -7,7 +7,6 @@ export var void_level = 300
 export var dash_speed = 350
 export var dash_cooldown = 0.35
 export var degrees_to_rotate_by = 0.15
-var diagonal_dash_speed = sqrt(pow(dash_speed, 2) / 2)
 var motion = Vector2()
 var rotating_direction = 0
 var time_stopped = false
