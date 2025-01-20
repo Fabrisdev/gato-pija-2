@@ -160,10 +160,6 @@ func handle_double_jump_skill(motion_y):
 		$"../UI/EquippedSkill".play_reset_cooldown_animation()
 		return motion_y
 	if has_already_used_double_jump: return motion_y
-	if $Manabar.remaining_mana < 20:
-		$NotEnoughManaPlayer.play()
-		return motion_y
-	$Manabar.reduce_mana(20)
 	$DoubleJumpSkillActivatedPlayer.play()
 	has_already_used_double_jump = true
 	$DoubleJumpParticles.emit()
