@@ -29,12 +29,6 @@ position = Vector2( -383, -136 )
 current = true
 zoom = Vector2( 0.6, 0.6 )
 
-[connection signal="dash_skill_equipped" from="UI" to="Player" method="_on_UI_dash_skill_equipped"]
-[connection signal="double_jump_skill_equipped" from="UI" to="Player" method="_on_UI_double_jump_skill_equipped"]
-[connection signal="skill_menu_closed" from="UI" to="." method="_on_UI_skill_menu_closed"]
-[connection signal="skill_menu_closed" from="UI" to="Player" method="_on_UI_skill_menu_closed"]
-[connection signal="skill_menu_opened" from="UI" to="." method="_on_UI_skill_menu_opened"]
-[connection signal="skill_menu_opened" from="UI" to="Player" method="_on_UI_skill_menu_opened"]
 [connection signal="died" from="Player" to="." method="_on_Player_died"]
 [connection signal="coin_obtained" from="WorldTemplate/Coin3" to="Player" method="_on_Coin3_coin_obtained"]
 [connection signal="coin_obtained" from="WorldTemplate/Coin2" to="Player" method="_on_Coin2_coin_obtained"]

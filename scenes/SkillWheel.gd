@@ -4,7 +4,7 @@ signal skill_menu_opened
 signal skill_menu_closed
 signal dash_skill_equipped
 signal double_jump_skill_equipped
-var can_open_menu = true
+var can_open_menu = false
 
 func _process(delta):
 	if $"../../Player".skill_on_cooldown: return

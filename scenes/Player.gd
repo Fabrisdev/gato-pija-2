@@ -42,7 +42,6 @@ func has_fell():
 	
 func handle_death():
 	modulate = Color.red
-	$"%UI/SkillWheel".can_open_menu = false
 
 func controlMovement(delta: float):
 	motion.y += gravity
@@ -57,18 +56,9 @@ func controlMovement(delta: float):
 			motion.x = lerp(motion.x, 0, 0.2)
 	else:
 		motion.y -= gravity
-		if is_on_ceiling() || is_on_floor() || is_on_wall():
-			$DashActiveTimer.stop()
-	
-	if skill_equipped != "NONE" and Input.is_action_just_pressed("use skill"):
-		handle_skill(skill_equipped, delta)	
-		
-	if is_on_floor(): 
-		has_already_used_double_jump = false
-		if skill_equipped == "DOUBLE JUMP":
-			$"../UI/EquippedSkill".play_reset_cooldown_animation()
-	if skill_equipped == "DOUBLE JUMP" and Input.is_action_just_pressed("jump"):
-		motion.y = handle_double_jump_skill(motion.y)
+		if is_on_ceiling() or is_on_floor() or is_on_wall(): $DashActiveTimer.stop()
+	if is_on_floor(): has_already_used_double_jump = false
+	if Input.is_action_just_pressed("jump") and not is_on_floor(): motion.y = handle_double_jump_skill(motion.y)
 	
 	if rotatingRight:
 		if not firstRotationDone:
@@ -79,7 +69,7 @@ func controlMovement(delta: float):
 			else:
 				rotate_player(0.15)
 		else:
-			if floor(abs(get_player_rotation_degrees())) in range(0, 10) || floor(abs(get_player_rotation_degrees())) in range(350, 370):
+			if floor(abs(get_player_rotation_degrees())) in range(0, 10) or floor(abs(get_player_rotation_degrees())) in range(350, 370):
 				set_player_rotation_degrees(0)
 				rotatingRight = false
 				firstRotationDone = false
@@ -102,9 +92,6 @@ func controlMovement(delta: float):
 			else:
 				rotate_player(-0.15)
 	
-	if not is_on_floor() and Input.is_action_just_pressed("jump"):
-		handle_wall_jump()
-		
 	if is_on_floor():
 		if Input.is_action_just_pressed("jump"):
 			motion.y = -jump_force
@@ -112,11 +99,13 @@ func controlMovement(delta: float):
 				rotatingRight = true
 			elif Input.is_action_pressed("left"):
 				rotatingLeft = true
+	
+	handle_skills()
 	motion = move_and_slide(motion, Vector2.UP)
 
-func handle_skill(skill_equipped, delta):
-	if skill_on_cooldown: return
-	if skill_equipped == "DASH": handle_dash_skill()
+func handle_skills():
+	if Input.is_action_just_pressed("jump") and not is_on_floor(): handle_wall_jump()
+	if Input.is_action_just_pressed("use dash"): handle_dash_skill()
 
 func _on_UI_dash_skill_equipped():
 	skill_equipped = "DASH"
@@ -155,16 +144,11 @@ func _on_UI_double_jump_skill_equipped():
 	print("Skill equipped: " + skill_equipped)
 
 func handle_double_jump_skill(motion_y):
-	if is_on_floor(): 
-		has_already_used_double_jump = false
-		$"../UI/EquippedSkill".play_reset_cooldown_animation()
-		return motion_y
 	if has_already_used_double_jump: return motion_y
 	$DoubleJumpSkillActivatedPlayer.play()
-	has_already_used_double_jump = true
 	$DoubleJumpParticles.emit()
-	$"../UI/EquippedSkill".play_set_on_cooldown_animation()
 	Input.start_joy_vibration(0, 0.2, 0.2, 0.2)
+	has_already_used_double_jump = true
 	return -jump_force * 1.5
 
 func rotate_player(rotation_degrees):
@@ -178,6 +162,7 @@ func set_player_rotation_degrees(rotation_degrees):
 
 func handle_dash_skill():
 	if is_on_floor(): return
+	if $CooldownTimer.time_left != 0: return
 	if $Manabar.remaining_mana < 50: 
 		$NotEnoughManaPlayer.play()
 		return
@@ -187,7 +172,6 @@ func handle_dash_skill():
 	$CooldownTimer.start(dash_cooldown)
 	$Manabar.reduce_mana(50)
 	$DashSkillActivatedPlayer.play()
-	$"../UI/EquippedSkill".play_cooldown_animation()
 	Input.start_joy_vibration(0, 0.2, 0.2, 0.6)
 	motion.x = 0
 	motion.y = 0
