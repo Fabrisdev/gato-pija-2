@@ -39,12 +39,16 @@ func handle_death():
 	emit_signal("died")
 
 func handle_skills():
-	if is_on_floor(): has_already_used_double_jump = false
+	if is_on_floor(): 
+		has_already_used_double_jump = false
+		modulate = Color("fff")
 	if Input.is_action_just_pressed("jump") and not is_on_floor(): handle_wall_jump()
 	if Input.is_action_just_pressed("jump") and not is_on_floor(): handle_double_jump_skill()
 	if Input.is_action_just_pressed("use dash"): handle_dash_skill()
 
-func _on_CooldownTimer_timeout(): skill_on_cooldown = false
+func _on_CooldownTimer_timeout(): 
+	skill_on_cooldown = false
+	modulate = Color("fff")
 
 func _on_UI_skill_menu_opened():
 	time_stopped = true
@@ -68,6 +72,7 @@ func handle_double_jump_skill():
 	$DoubleJumpParticles.emit()
 	Input.start_joy_vibration(0, 0.2, 0.2, 0.2)
 	has_already_used_double_jump = true
+	modulate = Color("4aa2ff")
 	motion.y = -jump_force * 1.5
 
 func rotate_player(rotation_degrees):
@@ -94,6 +99,8 @@ func handle_dash_skill():
 	motion.x = 0
 	motion.y = 0
 	handle_dash_input()
+	modulate = Color("4aa2ff")
+	has_already_used_double_jump = false
 	skill_on_cooldown = true
 
 func handle_dash_input():
