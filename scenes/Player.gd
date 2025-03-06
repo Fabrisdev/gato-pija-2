@@ -13,6 +13,8 @@ var time_stopped = false
 var skill_on_cooldown = false
 var can_die = true
 var has_already_used_double_jump = false
+var is_touching_left_side_of_wall = false
+var is_touching_right_side_of_wall = false
 signal died
 
 func _physics_process(delta):
@@ -66,7 +68,7 @@ func _on_Coin2_coin_obtained(): $"%UI".set_second_coin_as_obtained()
 func _on_Coin3_coin_obtained(): $"%UI".set_third_coin_as_obtained()
 
 func handle_double_jump_skill():
-	if is_on_wall(): return
+	if is_touching_left_side_of_wall or is_touching_right_side_of_wall: return
 	if has_already_used_double_jump: return
 	$DoubleJumpSkillActivatedPlayer.play()
 	$DoubleJumpParticles.emit()
@@ -111,25 +113,25 @@ func handle_dash_input():
 	motion = motion.normalized() * dash_speed
 
 func handle_wall_jump():
-	var is_touching_left_side = false
-	var is_touching_right_side = false
-	for i in range(get_slide_count()):
-		var collision = get_slide_collision(i)
-		var normal = collision.normal
-		if normal.x < 0:
-			is_touching_right_side = true
-		elif normal.x > 0:
-			is_touching_left_side = true
-	if is_touching_left_side:
+	#for i in range(get_slide_count()):
+	#	var collision = get_slide_collision(i)
+	#	var normal = collision.normal
+	#	if normal.x < 0:
+	#		is_touching_right_side_of_wall = true
+	#	elif normal.x > 0:
+	#		is_touching_left_side_of_wall = true
+	if is_touching_left_side_of_wall:
 		motion.y = -jump_force * 1.5
 		motion.x = jump_force * 1.5
 		$DoubleJumpParticles.emit()
 		$DoubleJumpSkillActivatedPlayer.play()
-	if is_touching_right_side:
+		is_touching_left_side_of_wall = false
+	if is_touching_right_side_of_wall:
 		motion.y = -jump_force * 1.5
 		motion.x = -jump_force * 1.5
 		$DoubleJumpParticles.emit()
 		$DoubleJumpSkillActivatedPlayer.play()
+		is_touching_right_side_of_wall = false
 		
 func handle_rotation():
 	if is_on_floor():
@@ -151,3 +153,11 @@ func handle_movement():
 	else: motion.x = lerp(motion.x, 0, 0.2)
 	motion.x += direction * max_speed * 0.1
 	motion.x = clamp(motion.x, -max_speed, max_speed)
+
+
+func _on_RayCastLeftWall2D_collided():
+	is_touching_left_side_of_wall = true
+
+
+func _on_RayCastLeftWall2D_no_collision():
+	is_touching_left_side_of_wall = false
